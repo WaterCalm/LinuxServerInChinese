@@ -1,0 +1,2 @@
+# SWAG setup
+
