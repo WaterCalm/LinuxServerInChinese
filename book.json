@@ -1,0 +1,68 @@
+{
+    "title": "LinuxServer | 中文",
+    "author": "WaterCalm",
+    "description": "翻译Linuxserver.io的文档，并分享Linuxserver制作的Docker镜像",
+    "language": "zh-hans",
+    "links": {
+        "sidebar": {
+            "Home": "https://linuxserver.watercalmx.com",
+			"LinuxServer.io":"https://www.linuxserver.io/",
+			"Docker Hub":"https://hub.docker.com/",
+			"清华镜像源":"https://mirrors.tuna.tsinghua.edu.cn/help/docker-ce/",
+			"DaoCloud":"http://get.daocloud.io/"
+        }
+    },
+    "styles": {
+        "website": "styles/website.css"
+    },
+    "plugins": [
+        "-search",
+        "back-to-top-button",
+        "code",
+        "search-pro",
+        "-lunr",
+        "tbfed-pagefooter",
+        "flexible-alerts",
+        "pageview-count",
+        "popup",
+        "splitter",
+        "sharing-plus",
+        "-sharing",
+        "click-reveal",
+        "theme-comscore",
+        "codeblock-filename",
+		"page-toc-button"
+    ],
+    "pluginsConfig": {
+        "code": {
+            "copyButtons": true
+        },
+        "sharing": {
+            "douban": false,
+            "facebook": false,
+            "google": false,
+            "pocket": false,
+            "qq": true,
+            "qzone": false,
+            "twitter": false,
+            "weibo": true,
+            "all": [
+                "google",
+                "twitter",
+                "douban",
+                "qzone"
+            ]
+        },
+        "tbfed-pagefooter": {
+            "modify_label": "该页面修订时间：",
+            "modify_format": "YYYY-MM-DD HH:mm:ss"
+        },
+        "flexible-alerts": {
+            "style": "flat"
+        },
+		"page-toc-button": {
+            "maxTocDepth": 2,
+            "minTocSize": 2
+           }
+    }
+}
