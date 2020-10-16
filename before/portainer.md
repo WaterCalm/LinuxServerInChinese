@@ -33,9 +33,9 @@ docker volume create portainer_data
 docker run -d -p 9000:9000 --name=portainer -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce  
 ```
 
-如果想挂载到本地目录只需要把 portainer_data 修改为本地的绝对路径即可。
+如果想挂载到本地目录只需要把 `portainer_data` 修改为本地的绝对路径即可。
 
-docker的部署命令中，涉及到端口和卷的映射时，都是这种格式  宿主机:容器内 。
+docker的部署命令中，涉及到端口和卷的映射时，都是这种格式  `宿主机:容器内` 。
 
 > [!TIP]
 >
@@ -46,11 +46,11 @@ docker的部署命令中，涉及到端口和卷的映射时，都是这种格�
 nano portainer.sh
 #把命令写入文件，可以用这种格式方便阅读，记得每行结尾要有“ \”，不然会报错
 docker run -d \
-  -p 9000:9000 \
-  --name=portainer \
-  -v /var/run/docker.sock:/var/run/docker.sock \
-  -v /docker/portainer:/data \
-  portainer/portainer-ce
+    -p 9000:9000 \
+    --name=portainer \
+    -v /var/run/docker.sock:/var/run/docker.sock \
+    -v /docker/portainer:/data \
+    portainer/portainer-ce
 
 #写入完成后保存，nano编辑器就是 ctrl+o写入，ctrl+x退出。vi编辑器则是 按esc后输入 :wq 
 #赋予脚本执行权限

@@ -36,6 +36,7 @@ curl -sSL http://acs-public-mirror.oss-cn-hangzhou.aliyuncs.com/docker-engine/in
 
 但我强烈不建议在Windows上安装docker，总会遇到各种各样奇奇怪怪的问题。我曾在两台不同的Windows电脑上安装过Docker，最后都毅然决然地卸载了。如果在Windows平台，可以尝试使用Windows的Linux子系统功能来体验Docker。 →  [适用于 Linux 的 Windows 子系统文档](https://docs.microsoft.com/zh-cn/windows/wsl/)
 
+------
 ## 配置镜像加速
 
 安装完成后，我是都习惯于修改下镜像源，不然有可能遇到网络问题。
@@ -59,6 +60,6 @@ sudo systemctl daemon-reload
 sudo systemctl restart docker
 ```
 
-其实很简单，docker会读取在/etc/docker目录下的daemon.json文件作为配置。默认是没有这个文件的，新建一个就好，之后再用docker pull镜像的时候，就会从镜像源去拉取，提升了速度与稳定性。
+其实很简单，docker会读取在`/etc/docker`目录下的`daemon.json`文件作为配置。默认是没有这个文件的，新建一个就好，之后再用`docker pull`镜像的时候，就会从镜像源去拉取，提升了速度与稳定性。
 
 到此为止，docker的安装就完成了。
