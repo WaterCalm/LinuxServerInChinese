@@ -82,7 +82,7 @@
 
     
     
-    <link rel="prev" href="before/portainer.html" />
+    <link rel="prev" href="before/dockerabc.html" />
     
 
     </head>
@@ -180,6 +180,19 @@
             
         </li>
     
+        <li class="chapter " data-level="1.1.3" data-path="before/dockerabc.html">
+            
+                <a href="before/dockerabc.html">
+            
+                    
+                    关于Docker的几点常识
+            
+                </a>
+            
+
+            
+        </li>
+    
 
             </ul>
             
@@ -217,7 +230,7 @@
                 <a href="general/container-execution.html">
             
                     
-                    Container Execution
+                    进入容器
             
                 </a>
             
@@ -230,7 +243,7 @@
                 <a href="general/containers-101.html">
             
                     
-                    Docker Containers: 101
+                    Docker容器入门
             
                 </a>
             
@@ -243,7 +256,7 @@
                 <a href="general/running-our-containers.html">
             
                     
-                    Running LinuxServer Containers
+                    运行LinuxServer的容器
             
                 </a>
             
@@ -269,7 +282,7 @@
                 <a href="general/understanding-puid-and-pgid.html">
             
                     
-                    Understanding PUID and PGID
+                    什么是PUID和PGID
             
                 </a>
             
@@ -282,7 +295,7 @@
                 <a href="general/updating-our-containers.html">
             
                     
-                    Updating our containers
+                    更新容器
             
                 </a>
             
@@ -295,7 +308,7 @@
                 <a href="general/volumes.html">
             
                     
-                    Volumes
+                    卷（Volumes）
             
                 </a>
             
@@ -321,7 +334,7 @@
                 <a href="general/swag.html">
             
                     
-                    SWAG setup1111111111111111111111111111111111
+                    部署SWAG
             
                 </a>
             
@@ -412,9 +425,26 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="&#x524D;&#x8A00;">&#x524D;&#x8A00;</h1>
-<p>&#x8FD9;&#x91CC;&#x662F;&#x539F;&#x59CB;&#x7684;&#x4ECB;&#x7ECD;</p>
+<blockquote>
+<p>[!NOTE]</p>
+<p>&#x4EE5;&#x4E0B;&#x5185;&#x5BB9;&#x5F00;&#x59CB;&#x4FBF;&#x662F;&#x7FFB;&#x8BD1;&#x81EA;LinuxServer.io&#x5B98;&#x7F51;&#x7684;&#x6587;&#x6863;&#x5185;&#x5BB9;</p>
+</blockquote>
+<p>&#x6B22;&#x8FCE;&#x5927;&#x5BB6;&#x9605;&#x8BFB;LinuxServer.io&#x7684;&#x6587;&#x6863;&#x3002;&#x5728;&#x8FD9;&#x91CC;&#xFF0C;&#x6211;&#x4EEC;&#x5C06;&#x8BB0;&#x5F55;&#x955C;&#x50CF;&#x7684;&#x76F8;&#x5173;&#x4FE1;&#x606F;&#xFF0C;&#x4EE5;&#x5E2E;&#x52A9;&#x6211;&#x4EEC;&#x7684;&#x7528;&#x6237;&#x5165;&#x95E8;&#x4F7F;&#x7528;&#x3002;&#x9664;&#x4E86;&#x9488;&#x5BF9;&#x6BCF;&#x4E2A;&#x5BB9;&#x5668;&#x7684;&#x8BBE;&#x7F6E;&#x6307;&#x5357;&#x5916;&#xFF0C;&#x6211;&#x4EEC;&#x8FD8;&#x4F1A;&#x7B80;&#x8981;&#x4ECB;&#x7ECD;docker&#x7684;&#x4F7F;&#x7528;&#xFF0C;&#x4EE5;&#x53CA;&#x4E00;&#x4E9B;&#x5B9E;&#x8DF5;&#x6848;&#x4F8B;&#x3002;</p>
+<hr>
+<h3 id="&#x5982;&#x4F55;&#x4E0E;&#x6211;&#x4EEC;&#x4EA4;&#x6D41;&#xFF1F;"><strong>&#x5982;&#x4F55;&#x4E0E;&#x6211;&#x4EEC;&#x4EA4;&#x6D41;&#xFF1F;</strong></h3>
+<p>&#x6211;&#x4EEC;&#x4E3B;&#x8981;&#x5728; Discord <sup><a href="#fn_1" id="reffn_1">1</a></sup>&#x4E0A;&#x4EA4;&#x6D41;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x5728;&#x8BBA;&#x575B;&#x4E0A;&#x4E0E;&#x6211;&#x4EEC;&#x4EA4;&#x6D41;&#x3002;</p>
+<p>Discord &#x2192;  <a href="https://discord.gg/YWrKVTn" target="_blank">https://discord.gg/YWrKVTn</a> </p>
+<p>&#x8BBA;&#x575B; &#x2192;  <a href="https://discourse.linuxserver.io" target="_blank">https://discourse.linuxserver.io</a></p>
+<p>&#x5982;&#x679C;&#x5BF9;&#x6211;&#x4EEC;&#x7684;&#x6301;&#x7EED;&#x96C6;&#x6210;&#xFF08;CI&#xFF09;&#x73AF;&#x5883;&#x611F;&#x5174;&#x8DA3;&#xFF0C;&#x53EF;&#x4EE5;&#x6D4F;&#x89C8;&#x6211;&#x4EEC;&#x7684; Jenkins<sup><a href="#fn_2" id="reffn_2">2</a></sup> &#xFF1A;<a href="https://ci.linuxserver.io/" target="_blank">https://ci.linuxserver.io/</a></p>
+<hr>
+<blockquote id="fn_1">
+<sup>1</sup>. &#x4E00;&#x6B3E;&#x5373;&#x65F6;&#x901A;&#x4FE1;&#x8F6F;&#x4EF6;&#xFF0C;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x7F51;&#x9875;&#x76F4;&#x63A5;&#x8BBF;&#x95EE;&#x3002;&#xFF08;&#x53EF;&#x80FD;&#x9700;&#x8981;&#x79D1;&#x5B66;&#x4E0A;&#x7F51;&#xFF09;<a href="#reffn_1" title="Jump back to footnote [1] in the text."> &#x21A9;</a>
+</blockquote>
+<blockquote id="fn_2">
+<sup>2</sup>. &#x57FA;&#x4E8E;Java&#x5F00;&#x53D1;&#x7684;&#x4E00;&#x79CD;&#x6301;&#x7EED;&#x96C6;&#x6210;&#x5DE5;&#x5177;&#xFF0C;&#x7528;&#x4E8E;&#x76D1;&#x63A7;&#x6301;&#x7EED;&#x91CD;&#x590D;&#x7684;&#x5DE5;&#x4F5C;&#x3002; <a href="#reffn_2" title="Jump back to footnote [2] in the text."> &#x21A9;</a>
+</blockquote>
 <footer class="page-footer"><span class="copyright">powered by Gitbook</span><span class="footer-modification">&#x8BE5;&#x9875;&#x9762;&#x4FEE;&#x8BA2;&#x65F6;&#x95F4;&#xFF1A;
-2020-10-15 14:46:22
+2020-10-16 12:33:52
 </span></footer>
                                 
                                 </section>
@@ -442,7 +472,7 @@
 
             
                 
-                <a href="before/portainer.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Portainer - 可视化管理Docker">
+                <a href="before/dockerabc.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: 关于Docker的几点常识">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
@@ -454,7 +484,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"前言","level":"1.2","depth":1,"next":{"title":"概述","level":"1.3","depth":1,"ref":"","articles":[{"title":"Container Execution","level":"1.3.1","depth":2,"path":"general/container-execution.md","ref":"general/container-execution.md","articles":[]},{"title":"Docker Containers: 101","level":"1.3.2","depth":2,"path":"general/containers-101.md","ref":"general/containers-101.md","articles":[]},{"title":"Running LinuxServer Containers","level":"1.3.3","depth":2,"path":"general/running-our-containers.md","ref":"general/running-our-containers.md","articles":[]},{"title":"Docker Compose","level":"1.3.4","depth":2,"path":"general/docker-compose.md","ref":"general/docker-compose.md","articles":[]},{"title":"Understanding PUID and PGID","level":"1.3.5","depth":2,"path":"general/understanding-puid-and-pgid.md","ref":"general/understanding-puid-and-pgid.md","articles":[]},{"title":"Updating our containers","level":"1.3.6","depth":2,"path":"general/updating-our-containers.md","ref":"general/updating-our-containers.md","articles":[]},{"title":"Volumes","level":"1.3.7","depth":2,"path":"general/volumes.md","ref":"general/volumes.md","articles":[]},{"title":"Fleet","level":"1.3.8","depth":2,"path":"general/fleet.md","ref":"general/fleet.md","articles":[]},{"title":"SWAG setup1111111111111111111111111111111111","level":"1.3.9","depth":2,"path":"general/swag.md","ref":"general/swag.md","articles":[]}]},"previous":{"title":"Portainer - 可视化管理Docker","level":"1.1.2","depth":2,"path":"before/portainer.md","ref":"before/portainer.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-search","-lunr","-sharing","back-to-top-button","code","search-pro","tbfed-pagefooter","flexible-alerts","splitter","sharing-plus","theme-comscore","codeblock-filename","page-toc-button"],"styles":{"website":"styles/website.css"},"pluginsConfig":{"tbfed-pagefooter":{"modify_label":"该页面修订时间：","modify_format":"YYYY-MM-DD HH:mm:ss"},"splitter":{},"search-pro":{},"sharing-plus":{"qq":false,"all":["facebook","google","twitter","instapaper","linkedin","pocket","stumbleupon"],"douban":false,"facebook":true,"weibo":false,"instapaper":false,"whatsapp":false,"hatenaBookmark":false,"twitter":true,"messenger":false,"line":false,"vk":false,"pocket":true,"google":false,"viber":false,"stumbleupon":false,"qzone":false,"linkedin":false},"code":{"copyButtons":true},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"codeblock-filename":{},"theme-comscore":{},"page-toc-button":{"maxTocDepth":2,"minTocSize":2},"back-to-top-button":{},"flexible-alerts":{"danger":{"className":"danger","icon":"fa fa-ban","label":"Attention"},"note":{"className":"info","icon":"fa fa-info-circle","label":"Note"},"style":"flat","tip":{"className":"tip","icon":"fa fa-lightbulb-o","label":"Tip"},"warning":{"className":"warning","icon":"fa fa-exclamation-triangle","label":"Warning"}},"sharing":{"qq":true,"all":["google","twitter","douban","qzone"],"douban":false,"facebook":false,"weibo":true,"twitter":false,"pocket":false,"google":false,"qzone":false},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"WaterCalm","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"LinuxServer | 中文","language":"zh-hans","links":{"sidebar":{"Home":"https://linuxserver.watercalmx.com","LinuxServer.io":"https://www.linuxserver.io/","Docker Hub":"https://hub.docker.com/","清华镜像源":"https://mirrors.tuna.tsinghua.edu.cn/help/docker-ce/","DaoCloud":"http://get.daocloud.io/"}},"gitbook":"*","description":"翻译Linuxserver.io的文档，并分享Linuxserver制作的Docker镜像"},"file":{"path":"Introduction.md","mtime":"2020-10-15T06:46:22.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-10-15T10:13:45.495Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"前言","level":"1.2","depth":1,"next":{"title":"概述","level":"1.3","depth":1,"ref":"","articles":[{"title":"进入容器","level":"1.3.1","depth":2,"path":"general/container-execution.md","ref":"general/container-execution.md","articles":[]},{"title":"Docker容器入门","level":"1.3.2","depth":2,"path":"general/containers-101.md","ref":"general/containers-101.md","articles":[]},{"title":"运行LinuxServer的容器","level":"1.3.3","depth":2,"path":"general/running-our-containers.md","ref":"general/running-our-containers.md","articles":[]},{"title":"Docker Compose","level":"1.3.4","depth":2,"path":"general/docker-compose.md","ref":"general/docker-compose.md","articles":[]},{"title":"什么是PUID和PGID","level":"1.3.5","depth":2,"path":"general/understanding-puid-and-pgid.md","ref":"general/understanding-puid-and-pgid.md","articles":[]},{"title":"更新容器","level":"1.3.6","depth":2,"path":"general/updating-our-containers.md","ref":"general/updating-our-containers.md","articles":[]},{"title":"卷（Volumes）","level":"1.3.7","depth":2,"path":"general/volumes.md","ref":"general/volumes.md","articles":[]},{"title":"Fleet","level":"1.3.8","depth":2,"path":"general/fleet.md","ref":"general/fleet.md","articles":[]},{"title":"部署SWAG","level":"1.3.9","depth":2,"path":"general/swag.md","ref":"general/swag.md","articles":[]}]},"previous":{"title":"关于Docker的几点常识","level":"1.1.3","depth":2,"path":"before/dockerabc.md","ref":"before/dockerabc.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-search","-lunr","-sharing","back-to-top-button","code","search-pro","tbfed-pagefooter","flexible-alerts","splitter","sharing-plus","theme-comscore","codeblock-filename","page-toc-button"],"styles":{"website":"styles/website.css"},"pluginsConfig":{"tbfed-pagefooter":{"modify_label":"该页面修订时间：","modify_format":"YYYY-MM-DD HH:mm:ss"},"splitter":{},"search-pro":{},"sharing-plus":{"qq":false,"all":["facebook","google","twitter","instapaper","linkedin","pocket","stumbleupon"],"douban":false,"facebook":true,"weibo":false,"instapaper":false,"whatsapp":false,"hatenaBookmark":false,"twitter":true,"messenger":false,"line":false,"vk":false,"pocket":true,"google":false,"viber":false,"stumbleupon":false,"qzone":false,"linkedin":false},"code":{"copyButtons":true},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"codeblock-filename":{},"theme-comscore":{},"page-toc-button":{"maxTocDepth":2,"minTocSize":2},"back-to-top-button":{},"flexible-alerts":{"danger":{"className":"danger","icon":"fa fa-ban","label":"Attention"},"note":{"className":"info","icon":"fa fa-info-circle","label":"Note"},"style":"flat","tip":{"className":"tip","icon":"fa fa-lightbulb-o","label":"Tip"},"warning":{"className":"warning","icon":"fa fa-exclamation-triangle","label":"Warning"}},"sharing":{"qq":true,"all":["google","twitter","douban","qzone"],"douban":false,"facebook":false,"weibo":true,"twitter":false,"pocket":false,"google":false,"qzone":false},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"WaterCalm","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"LinuxServer | 中文","language":"zh-hans","links":{"sidebar":{"Home":"https://linuxserver.watercalmx.com","LinuxServer.io":"https://www.linuxserver.io/","Docker Hub":"https://hub.docker.com/","清华镜像源":"https://mirrors.tuna.tsinghua.edu.cn/help/docker-ce/","DaoCloud":"http://get.daocloud.io/"}},"gitbook":"*","description":"翻译Linuxserver.io的文档，并分享Linuxserver制作的Docker镜像"},"file":{"path":"Introduction.md","mtime":"2020-10-16T04:33:52.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-10-16T09:54:38.653Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

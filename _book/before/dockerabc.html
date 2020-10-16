@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Portainer - 可视化管理Docker · LinuxServer | 中文</title>
+        <title>关于Docker的几点常识 · LinuxServer | 中文</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -81,10 +81,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="dockerabc.html" />
+    <link rel="next" href="../Introduction.html" />
     
     
-    <link rel="prev" href="docker-install.html" />
+    <link rel="prev" href="portainer.html" />
     
 
     </head>
@@ -169,7 +169,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.1.2" data-path="portainer.html">
+        <li class="chapter " data-level="1.1.2" data-path="portainer.html">
             
                 <a href="portainer.html">
             
@@ -182,7 +182,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.1.3" data-path="dockerabc.html">
+        <li class="chapter active" data-level="1.1.3" data-path="dockerabc.html">
             
                 <a href="dockerabc.html">
             
@@ -411,7 +411,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >Portainer - 可视化管理Docker</a>
+        <a href=".." >关于Docker的几点常识</a>
     </h1>
 </div>
 
@@ -426,59 +426,70 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="portainer---&#x53EF;&#x89C6;&#x5316;&#x7BA1;&#x7406;docker">Portainer - &#x53EF;&#x89C6;&#x5316;&#x7BA1;&#x7406;Docker</h1>
-<p><img src="https://pic.watercalmx.com/pic/01_homescreen-ce.png" alt=""></p>
-<p>Portainer&#x662F;&#x4E00;&#x4E2A;&#x4F18;&#x79C0;&#x7684;Docker&#x3001;Swarm&#x3001;Kubernetes&#x7B49;&#x5BB9;&#x5668;&#x670D;&#x52A1;&#x7684;&#x7BA1;&#x7406;&#x5DE5;&#x5177;&#xFF0C;&#x62E5;&#x6709;&#x7B80;&#x5355;&#x660E;&#x4E86;&#x7684;UI&#x754C;&#x9762;&#x3002;&#x8FD9;&#x91CC;&#x6211;&#x4EEC;&#x53EA;&#x8981;&#x77E5;&#x9053;&#x8FD9;&#x4E1C;&#x897F;&#x53EF;&#x4EE5;&#x53EF;&#x89C6;&#x5316;&#x7BA1;&#x7406;Docker&#x5C31;&#x597D;&#xFF0C;&#x529F;&#x80FD;&#x5F88;&#x5F3A;&#x5927;&#xFF0C;&#x4F46;&#x5BF9;&#x4E8E;&#x6211;&#x4EEC;&#x5C0F;&#x767D;&#x6765;&#x8BF4;&#x6700;&#x76F4;&#x89C2;&#x7684;&#x611F;&#x53D7;&#x5C31;&#x662F;&#x544A;&#x522B;&#x4E86;&#x9ED1;&#x767D;&#x7684;&#x547D;&#x4EE4;&#x884C;&#x3002;</p>
-<h2 id="&#x62C9;&#x53D6;&#x955C;&#x50CF;">&#x62C9;&#x53D6;&#x955C;&#x50CF;</h2>
-<p>&#x62C9;&#x53D6;&#x955C;&#x50CF;&#x524D;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5148;&#x53BB; Docker Hub &#x641C;&#x7D22;&#x4E00;&#x4E0B;&#xFF0C;&#x4E00;&#x822C;&#x6765;&#x8BF4;&#x5728;&#x8FD9;&#x91CC;&#x90FD;&#x80FD;&#x627E;&#x5230;&#x5BF9;&#x5E94;&#x955C;&#x50CF;&#x7684;&#x6587;&#x6863;&#x3002;<a href="https://hub.docker.com/" target="_blank">https://hub.docker.com/</a></p>
-<blockquote>
-<p>[!WARNING]</p>
-<p>portainer/portainer &#x955C;&#x50CF;&#x76EE;&#x524D;&#x5DF2;&#x4E0D;&#x88AB;&#x63A8;&#x8350;&#x4F7F;&#x7528;&#xFF0C;&#x5E94;&#x8BE5;&#x4F7F;&#x7528; portainer/portainer-ce &#x955C;&#x50CF;</p>
-</blockquote>
-<p>&#x5728;&#x547D;&#x4EE4;&#x884C;&#x4E0B;&#x62C9;&#x53D6;&#x955C;&#x50CF;&#xFF0C;&#x5982;&#x679C;&#x975E;root&#x7528;&#x6237;&#x6216;&#x8005;&#x63D0;&#x793A;&#x6743;&#x9650;&#x95EE;&#x9898;&#xFF0C;&#x8BB0;&#x5F97;&#x5728;&#x547D;&#x4EE4;&#x524D;&#x52A0;&#x4E0A; sudo</p>
-<pre><code class="lang-shell">docker pull portainer/portainer-ce
+                                <h1 id="&#x5173;&#x4E8E;docker&#x7684;&#x51E0;&#x70B9;&#x5E38;&#x8BC6;">&#x5173;&#x4E8E;Docker&#x7684;&#x51E0;&#x70B9;&#x5E38;&#x8BC6;</h1>
+<h2 id="docker&#x51E0;&#x4E2A;&#x6982;&#x5FF5;&#x7684;&#x7B80;&#x5355;&#x4ECB;&#x7ECD;">Docker&#x51E0;&#x4E2A;&#x6982;&#x5FF5;&#x7684;&#x7B80;&#x5355;&#x4ECB;&#x7ECD;</h2>
+<p>&#x4E3A;&#x4E86;&#x65B9;&#x4FBF;&#x5C0F;&#x767D;&#xFF0C;&#x7B80;&#x5355;&#x4ECB;&#x7ECD;&#x4E0B;&#x540E;&#x9762;&#x6587;&#x7AE0;&#x4E2D;&#x4F1A;&#x63D0;&#x5230;&#x7684;&#x51E0;&#x4E2A;&#x6982;&#x5FF5;&#xFF1A;</p>
+<table>
+<thead>
+<tr>
+<th>&#x4E2D;&#x6587;&#x540D;&#x79F0;</th>
+<th>&#x82F1;&#x6587;</th>
+<th>&#x53C2;&#x6570;</th>
+<th>&#x4ECB;&#x7ECD;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&#x955C;&#x50CF;</td>
+<td>image</td>
+<td></td>
+<td>&#x53EF;&#x4EE5;&#x7406;&#x89E3;&#x4E3A;&#x522B;&#x4EBA;&#x5236;&#x4F5C;&#x597D;&#x7684;&#x5B89;&#x88C5;&#x5305;</td>
+</tr>
+<tr>
+<td>&#x5BB9;&#x5668;</td>
+<td>container</td>
+<td></td>
+<td>&#x901A;&#x8FC7; <code>docker run</code> &#x6216; <code>docker create</code> &#x547D;&#x4EE4;&#x5373;&#x53EF;&#x90E8;&#x7F72;&#x955C;&#x50CF;&#xFF0C;&#x968F;&#x4E4B;&#x6210;&#x4E3A;&#x5BB9;&#x5668;&#x5E76;&#x8FD0;&#x884C;&#x5728;&#x4F60;&#x7684;&#x7535;&#x8111;&#x4E0A;</td>
+</tr>
+<tr>
+<td>&#x5377;</td>
+<td>volume</td>
+<td><code>-v</code></td>
+<td>&#x5728;&#x90E8;&#x7F72;&#x955C;&#x50CF;&#x7684;&#x65F6;&#x5019;&#x901A;&#x8FC7; <code>-v</code> &#x6765;&#x8BBE;&#x7F6E;&#xFF0C;&#x5373;&#x53EF;&#x628A;&#x5BBF;&#x4E3B;&#x673A;&#x4E0A;&#x7684;&#x8DEF;&#x5F84;&#x6620;&#x5C04;&#x5230;&#x5BB9;&#x5668;&#x5185;&#x3002;&#x4E5F;&#x53EF;&#x4EE5;&#x901A;&#x8FC7; <code>docker volume create</code> &#x6765;&#x521B;&#x5EFA;&#x533F;&#x540D;&#x5377;&#x5B58;&#x50A8;&#x76F8;&#x5173;&#x7684;&#x6570;&#x636E;&#x3002;</td>
+</tr>
+<tr>
+<td>&#x73AF;&#x5883;&#x53D8;&#x91CF;</td>
+<td>environment</td>
+<td><code>-e</code></td>
+<td>&#x5373;&#x5BB9;&#x5668;&#x5185;&#x7684;&#x73AF;&#x5883;&#x53D8;&#x91CF;&#xFF0C;&#x5728;&#x90E8;&#x7F72;&#x7684;&#x65F6;&#x5019;&#x901A;&#x8FC7; <code>-e</code> &#x6765;&#x8BBE;&#x7F6E;&#xFF0C;&#x5BB9;&#x5668;&#x5185;&#x53EF;&#x4EE5;&#x901A;&#x8FC7; <code>env</code> &#x67E5;&#x770B;&#x3002;</td>
+</tr>
+<tr>
+<td>&#x7AEF;&#x53E3;</td>
+<td>port</td>
+<td><code>-p</code></td>
+<td>&#x53EF;&#x4EE5;&#x5C06;&#x5BB9;&#x5668;&#x5185;&#x7684;&#x67D0;&#x4E2A;&#x7AEF;&#x53E3;&#x6620;&#x5C04;&#x5230;&#x5BBF;&#x4E3B;&#x673A;&#x4E0A;</td>
+</tr>
+<tr>
+<td>&#x7F51;&#x7EDC;</td>
+<td>network</td>
+<td><code>--network</code></td>
+<td>&#x53EF;&#x4EE5;&#x5C06;&#x591A;&#x4E2A;&#x5BB9;&#x5668;&#x8BBE;&#x7F6E;&#x5728;&#x540C;&#x4E00;&#x4E2A;&#x7F51;&#x7EDC;&#x4E0B;&#xFF0C;&#x65B9;&#x4FBF;&#x5404;&#x4E2A;&#x5BB9;&#x5668;&#x4E4B;&#x95F4;&#x7684;&#x7F51;&#x7EDC;&#x901A;&#x4FE1;&#xFF0C;&#x8FD9;&#x6837;&#x4E5F;&#x4E0D;&#x5FC5;&#x8981;&#x5C06;&#x6BCF;&#x4E2A;&#x7AEF;&#x53E3;&#x90FD;&#x5F00;&#x653E;&#x5230;&#x5BBF;&#x4E3B;&#x673A;&#x4E0A;&#x3002;&#x5982;&#x679C;&#x8981;&#x7ED9;&#x5BB9;&#x5668;&#x7ED1;&#x5B9A;ip&#x5219;&#x5FC5;&#x987B;&#x8981;&#x5148;&#x521B;&#x5EFA;&#x7F51;&#x7EDC;&#x624D;&#x884C;&#x3002;</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="&#x521B;&#x5EFA;&#x865A;&#x62DF;&#x7F51;&#x7EDC;">&#x521B;&#x5EFA;&#x865A;&#x62DF;&#x7F51;&#x7EDC;</h2>
+<p>&#x5728;&#x5B9E;&#x9645;&#x5E94;&#x7528;&#x4E2D;&#x6211;&#x4EEC;&#x4F1A;&#x9047;&#x5230;&#x4E0D;&#x540C;&#x5BB9;&#x5668;&#x4E4B;&#x95F4;&#x9700;&#x8981;&#x8FDB;&#x884C;&#x7F51;&#x7EDC;&#x901A;&#x4FE1;&#x3002;&#x6BD4;&#x5982;&#x642D;&#x5EFA;nextcloud&#xFF0C;&#x53EF;&#x80FD;&#x9700;&#x8981;mariadb&#x3001;nextcloud&#x3001;nginx&#x4E09;&#x4E2A;&#x5BB9;&#x5668;&#x4E00;&#x8D77;&#x8FD0;&#x884C;&#xFF0C;&#x8FD9;&#x65F6;&#x5C31;&#x9700;&#x8981;&#x5C06;&#x8FD9;&#x4E09;&#x4E2A;&#x5BB9;&#x5668;&#x5206;&#x522B;&#x7ED1;&#x5B9A;&#x4E00;&#x4E2A;&#x56FA;&#x5B9A;ip&#xFF0C;&#x4E0D;&#x7136;&#x91CD;&#x542F;&#x7535;&#x8111;&#x6216;&#x8005;&#x91CD;&#x542F;docker&#x7684;&#x65F6;&#x5019;&#x56E0;&#x5BB9;&#x5668;&#x7684;&#x542F;&#x52A8;&#x987A;&#x5E8F;&#x4E0D;&#x540C;&#xFF0C;&#x4F1A;&#x9020;&#x6210;&#x4ED6;&#x4EEC;&#x5728;&#x5BB9;&#x5668;&#x5185;&#x7684;ip&#x6539;&#x53D8;&#xFF0C;&#x9020;&#x6210;&#x670D;&#x52A1;&#x62A5;&#x9519;&#x3002;</p>
+<p>&#x5982;&#x679C;&#x8981;&#x7ED9;&#x5BB9;&#x5668;&#x7ED1;&#x5B9A;&#x56FA;&#x5B9A;ip&#xFF0C;&#x9700;&#x8981;&#x5148;&#x521B;&#x5EFA;&#x7F51;&#x7EDC;&#xFF08;<a href="https://docs.docker.com/engine/reference/commandline/network_create/" target="_blank">&#x5B98;&#x65B9;&#x6587;&#x6863;</a>&#xFF09;&#xFF1A;</p>
+<pre><code class="lang-shell">docker network create --driver=bridge --subnet=10.0.0.0/24 myNetwork
 </code></pre>
-<h2 id="&#x90E8;&#x7F72;&#x955C;&#x50CF;">&#x90E8;&#x7F72;&#x955C;&#x50CF;</h2>
-<p>&#x56E0;&#x4E3A;portainer&#x9700;&#x8981;&#x4E00;&#x4E2A;&#x5377;&#xFF08;volume&#xFF09;&#x6765;&#x4FDD;&#x5B58;&#x914D;&#x7F6E;&#x548C;&#x76F8;&#x5173;&#x6570;&#x636E;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x7528;docker&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x533F;&#x540D;&#x5377;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x9009;&#x62E9;&#x6302;&#x8F7D;&#x4E00;&#x4E2A;&#x672C;&#x5730;&#x7684;&#x76EE;&#x5F55;&#x3002;</p>
-<blockquote>
-<p>[!NOTE]</p>
-<p>&#x5B98;&#x65B9;&#x7684;&#x63D0;&#x4F9B;&#x7684;&#x90E8;&#x7F72;&#x547D;&#x4EE4;&#x4E2D;&#x9664;&#x4E86;&#x5F00;&#x653E;9000&#x7AEF;&#x53E3;&#x5916;&#xFF0C;&#x8FD8;&#x5F00;&#x653E;&#x4E86;8000&#x7AEF;&#x53E3;&#x3002;&#x4F46;&#x6211;&#x4EEC;&#x53EA;&#x901A;&#x8FC7;&#x6D4F;&#x89C8;&#x5668;&#x8BBF;&#x95EE;portainer&#xFF0C;&#x6240;&#x4EE5;&#x53EA;&#x5F00;&#x653E;9000&#x7AEF;&#x53E3;&#x5373;&#x53EF;&#x3002;</p>
-</blockquote>
-<pre><code class="lang-shell">#&#x521B;&#x5EFA;&#x533F;&#x540D;&#x5377;
-docker volume create portainer_data
-#&#x90E8;&#x7F72;&#x5BB9;&#x5668;
-docker run -d -p 9000:9000 --name=portainer -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce
-</code></pre>
-<p>&#x5982;&#x679C;&#x60F3;&#x6302;&#x8F7D;&#x5230;&#x672C;&#x5730;&#x76EE;&#x5F55;&#x53EA;&#x9700;&#x8981;&#x628A; <code>portainer_data</code> &#x4FEE;&#x6539;&#x4E3A;&#x672C;&#x5730;&#x7684;&#x7EDD;&#x5BF9;&#x8DEF;&#x5F84;&#x5373;&#x53EF;&#x3002;</p>
-<p>docker&#x7684;&#x90E8;&#x7F72;&#x547D;&#x4EE4;&#x4E2D;&#xFF0C;&#x6D89;&#x53CA;&#x5230;&#x7AEF;&#x53E3;&#x548C;&#x5377;&#x7684;&#x6620;&#x5C04;&#x65F6;&#xFF0C;&#x90FD;&#x662F;&#x8FD9;&#x79CD;&#x683C;&#x5F0F;  <code>&#x5BBF;&#x4E3B;&#x673A;:&#x5BB9;&#x5668;&#x5185;</code> &#x3002;</p>
-<blockquote>
-<p>[!TIP]</p>
-<p>&#x5EFA;&#x8BAE;&#x5927;&#x5BB6;&#x628A;docker&#x5BB9;&#x5668;&#x7684;&#x90E8;&#x7F72;&#x547D;&#x4EE4;&#x5199;&#x5728;&#x4E00;&#x4E2A; shell &#x6587;&#x4EF6;&#x4E2D;&#xFF0C;&#x5E76;&#x8D4B;&#x4E88;&#x6587;&#x4EF6;&#x6267;&#x884C;&#x6743;&#x9650;&#x3002;&#x8FD9;&#x6837;&#x5982;&#x679C;&#x65E5;&#x540E;&#x9700;&#x8981;&#x66F4;&#x65B0;&#x5BB9;&#x5668;&#x6216;&#x8005;&#x91CD;&#x65B0;&#x90E8;&#x7F72;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x53EA;&#x8981;&#x8FD0;&#x884C;&#x8FD9;&#x4E2A;shell&#x6587;&#x4EF6;&#x5373;&#x53EF;&#x3002;</p>
-</blockquote>
-<pre><code class="lang-shell">#&#x521B;&#x5EFA;&#x6587;&#x4EF6;
-nano portainer.sh
-#&#x628A;&#x547D;&#x4EE4;&#x5199;&#x5165;&#x6587;&#x4EF6;&#xFF0C;&#x53EF;&#x4EE5;&#x7528;&#x8FD9;&#x79CD;&#x683C;&#x5F0F;&#x65B9;&#x4FBF;&#x9605;&#x8BFB;&#xFF0C;&#x8BB0;&#x5F97;&#x6BCF;&#x884C;&#x7ED3;&#x5C3E;&#x8981;&#x6709;&#x201C; \&#x201D;&#xFF0C;&#x4E0D;&#x7136;&#x4F1A;&#x62A5;&#x9519;
-docker run -d \
-    -p 9000:9000 \
-    --name=portainer \
-    -v /var/run/docker.sock:/var/run/docker.sock \
-    -v /docker/portainer:/data \
-    portainer/portainer-ce
-
-#&#x5199;&#x5165;&#x5B8C;&#x6210;&#x540E;&#x4FDD;&#x5B58;&#xFF0C;nano&#x7F16;&#x8F91;&#x5668;&#x5C31;&#x662F; ctrl+o&#x5199;&#x5165;&#xFF0C;ctrl+x&#x9000;&#x51FA;&#x3002;vi&#x7F16;&#x8F91;&#x5668;&#x5219;&#x662F; &#x6309;esc&#x540E;&#x8F93;&#x5165; :wq 
-#&#x8D4B;&#x4E88;&#x811A;&#x672C;&#x6267;&#x884C;&#x6743;&#x9650;
-chmod +x portainer.sh
-#&#x6267;&#x884C;&#x811A;&#x672C;&#x90E8;&#x7F72;&#x5BB9;&#x5668;
-./portainer.sh
-</code></pre>
-<p>&#x90E8;&#x7F72;&#x6210;&#x529F;&#x540E;&#xFF0C;&#x4F1A;&#x8FD4;&#x56DE;&#x5BB9;&#x5668;&#x7684;id&#x3002;</p>
-<p>&#x7136;&#x540E;&#x6211;&#x4EEC;&#x5728;&#x6D4F;&#x89C8;&#x5668;&#x4E2D;&#x8F93;&#x5165; <a href="http://ipaddress:9000" target="_blank">http://ipaddress:9000</a> &#x5373;&#x53EF;&#x8BBF;&#x95EE;portainer&#x7684;WEB UI&#x754C;&#x9762;</p>
-<p>&#x4E4B;&#x540E;&#xFF0C;&#x6211;&#x4EEC;&#x6309;&#x7167;&#x754C;&#x9762;&#x7684;&#x63D0;&#x793A;&#x521B;&#x5EFA;&#x7BA1;&#x7406;&#x5458;&#x8D26;&#x53F7;&#x3001;&#x9009;&#x62E9;&#x672C;&#x5730;&#x5BB9;&#x5668;&#x5C31;&#x53EF;&#x4EE5;&#x8FDB;&#x5165;&#x4E3B;&#x754C;&#x9762;&#x4E86;&#x3002;</p>
-<p><img src="https://pic.watercalmx.com/pic/da42642a58ba578e328375288bfa6e03ca4ec828.png" alt=""></p>
-<p><img src="https://pic.watercalmx.com/pic/33acc03c5a71f9d31476351500484ce4b6a2a849.png" alt=""></p>
-<p><img src="https://pic.watercalmx.com/pic/0bc9f44e4f629bc42c74629b9360ab88358d0ccb.png" alt=""> </p>
+<p>&#x5176;&#x4E2D; <code>--subnet</code> &#x662F;<code>ip/&#x63A9;&#x7801;&#x4F4D;</code> &#x683C;&#x5F0F;&#xFF0C;&#x53EF;&#x4EE5;&#x6307;&#x5B9A;&#x521B;&#x5EFA;&#x7684;&#x7F51;&#x7EDC;&#x7684;IP&#x6BB5;&#xFF0C;&#x5177;&#x4F53;&#x53EF;&#x4EE5;&#x901A;&#x8FC7; <a href="https://tool.520101.com/wangluo/ipjisuan/" target="_blank">IP&#x5730;&#x5740;&#x5728;&#x7EBF;&#x8BA1;&#x7B97;&#x5668;</a> &#x4E86;&#x89E3;&#x3002;&#x5F53;&#x7136;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x4E0D;&#x6307;&#x5B9A;&#x8FD9;&#x4E2A;&#x53C2;&#x6570;&#xFF0C;&#x90A3;&#x4E48;docker&#x5C06;&#x9ED8;&#x8BA4;&#x5206;&#x914D;&#x4E00;&#x4E2A;IP&#x6BB5;&#x3002;</p>
+<p>&#x521B;&#x5EFA;&#x597D;&#x865A;&#x62DF;&#x7F51;&#x7EDC;&#x4E4B;&#x540E;&#xFF0C;&#x6211;&#x4EEC;&#x5728;&#x90E8;&#x7F72;&#x955C;&#x50CF;&#x7684;&#x65F6;&#x5019;&#x5C31;&#x53EF;&#x4EE5;&#x901A;&#x8FC7; <code>--network</code> &#x548C; <code>--ip</code> &#x6765;&#x7ED9;&#x5BB9;&#x5668;&#x6307;&#x5B9A;&#x7F51;&#x7EDC;&#x548C;IP&#x3002;</p>
+<hr>
+<p>&#x5F53;&#x7136;&#xFF0C;&#x5982;&#x679C;&#x4F60;&#x5DF2;&#x7ECF;&#x5B89;&#x88C5;&#x4E86;portainer&#x7684;&#x8BDD;&#x3002;&#x4E5F;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x901A;&#x8FC7;web ui&#x6765;&#x521B;&#x5EFA;&#x7F51;&#x7EDC;</p>
+<p><img src="https://pic.watercalmx.com/pic/image-20201016141608627.png" alt="image-20201016141608627"> </p>
 <footer class="page-footer"><span class="copyright">powered by Gitbook</span><span class="footer-modification">&#x8BE5;&#x9875;&#x9762;&#x4FEE;&#x8BA2;&#x65F6;&#x95F4;&#xFF1A;
-2020-10-16 16:12:50
+2020-10-16 14:19:24
 </span></footer>
                                 
                                 </section>
@@ -506,12 +517,12 @@ chmod +x portainer.sh
 
             
                 
-                <a href="docker-install.html" class="navigation navigation-prev " aria-label="Previous page: 安装Docker">
+                <a href="portainer.html" class="navigation navigation-prev " aria-label="Previous page: Portainer - 可视化管理Docker">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="dockerabc.html" class="navigation navigation-next " aria-label="Next page: 关于Docker的几点常识">
+                <a href="../Introduction.html" class="navigation navigation-next " aria-label="Next page: 前言">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -522,7 +533,7 @@ chmod +x portainer.sh
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Portainer - 可视化管理Docker","level":"1.1.2","depth":2,"next":{"title":"关于Docker的几点常识","level":"1.1.3","depth":2,"path":"before/dockerabc.md","ref":"before/dockerabc.md","articles":[]},"previous":{"title":"安装Docker","level":"1.1.1","depth":2,"path":"before/docker-install.md","ref":"before/docker-install.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-search","-lunr","-sharing","back-to-top-button","code","search-pro","tbfed-pagefooter","flexible-alerts","splitter","sharing-plus","theme-comscore","codeblock-filename","page-toc-button"],"styles":{"website":"styles/website.css"},"pluginsConfig":{"tbfed-pagefooter":{"modify_label":"该页面修订时间：","modify_format":"YYYY-MM-DD HH:mm:ss"},"splitter":{},"search-pro":{},"sharing-plus":{"qq":false,"all":["facebook","google","twitter","instapaper","linkedin","pocket","stumbleupon"],"douban":false,"facebook":true,"weibo":false,"instapaper":false,"whatsapp":false,"hatenaBookmark":false,"twitter":true,"messenger":false,"line":false,"vk":false,"pocket":true,"google":false,"viber":false,"stumbleupon":false,"qzone":false,"linkedin":false},"code":{"copyButtons":true},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"codeblock-filename":{},"theme-comscore":{},"page-toc-button":{"maxTocDepth":2,"minTocSize":2},"back-to-top-button":{},"flexible-alerts":{"danger":{"className":"danger","icon":"fa fa-ban","label":"Attention"},"note":{"className":"info","icon":"fa fa-info-circle","label":"Note"},"style":"flat","tip":{"className":"tip","icon":"fa fa-lightbulb-o","label":"Tip"},"warning":{"className":"warning","icon":"fa fa-exclamation-triangle","label":"Warning"}},"sharing":{"qq":true,"all":["google","twitter","douban","qzone"],"douban":false,"facebook":false,"weibo":true,"twitter":false,"pocket":false,"google":false,"qzone":false},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"WaterCalm","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"LinuxServer | 中文","language":"zh-hans","links":{"sidebar":{"Home":"https://linuxserver.watercalmx.com","LinuxServer.io":"https://www.linuxserver.io/","Docker Hub":"https://hub.docker.com/","清华镜像源":"https://mirrors.tuna.tsinghua.edu.cn/help/docker-ce/","DaoCloud":"http://get.daocloud.io/"}},"gitbook":"*","description":"翻译Linuxserver.io的文档，并分享Linuxserver制作的Docker镜像"},"file":{"path":"before/portainer.md","mtime":"2020-10-16T08:12:50.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-10-16T09:54:38.653Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"关于Docker的几点常识","level":"1.1.3","depth":2,"next":{"title":"前言","level":"1.2","depth":1,"path":"Introduction.md","ref":"Introduction.md","articles":[]},"previous":{"title":"Portainer - 可视化管理Docker","level":"1.1.2","depth":2,"path":"before/portainer.md","ref":"before/portainer.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-search","-lunr","-sharing","back-to-top-button","code","search-pro","tbfed-pagefooter","flexible-alerts","splitter","sharing-plus","theme-comscore","codeblock-filename","page-toc-button"],"styles":{"website":"styles/website.css"},"pluginsConfig":{"tbfed-pagefooter":{"modify_label":"该页面修订时间：","modify_format":"YYYY-MM-DD HH:mm:ss"},"splitter":{},"search-pro":{},"sharing-plus":{"qq":false,"all":["facebook","google","twitter","instapaper","linkedin","pocket","stumbleupon"],"douban":false,"facebook":true,"weibo":false,"instapaper":false,"whatsapp":false,"hatenaBookmark":false,"twitter":true,"messenger":false,"line":false,"vk":false,"pocket":true,"google":false,"viber":false,"stumbleupon":false,"qzone":false,"linkedin":false},"code":{"copyButtons":true},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"codeblock-filename":{},"theme-comscore":{},"page-toc-button":{"maxTocDepth":2,"minTocSize":2},"back-to-top-button":{},"flexible-alerts":{"danger":{"className":"danger","icon":"fa fa-ban","label":"Attention"},"note":{"className":"info","icon":"fa fa-info-circle","label":"Note"},"style":"flat","tip":{"className":"tip","icon":"fa fa-lightbulb-o","label":"Tip"},"warning":{"className":"warning","icon":"fa fa-exclamation-triangle","label":"Warning"}},"sharing":{"qq":true,"all":["google","twitter","douban","qzone"],"douban":false,"facebook":false,"weibo":true,"twitter":false,"pocket":false,"google":false,"qzone":false},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"WaterCalm","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"LinuxServer | 中文","language":"zh-hans","links":{"sidebar":{"Home":"https://linuxserver.watercalmx.com","LinuxServer.io":"https://www.linuxserver.io/","Docker Hub":"https://hub.docker.com/","清华镜像源":"https://mirrors.tuna.tsinghua.edu.cn/help/docker-ce/","DaoCloud":"http://get.daocloud.io/"}},"gitbook":"*","description":"翻译Linuxserver.io的文档，并分享Linuxserver制作的Docker镜像"},"file":{"path":"before/dockerabc.md","mtime":"2020-10-16T06:19:24.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-10-16T09:54:38.653Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
