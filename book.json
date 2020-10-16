@@ -19,15 +19,15 @@
         "-search",
         "-lunr",
         "-sharing",
-        "back-to-top-button",
         "code",
         "search-pro",
         "tbfed-pagefooter",
         "flexible-alerts",
         "splitter",
         "theme-comscore",
-        "page-toc-button",
-        "baidu-tongji-with-multiple-channel"
+        "anchor-navigation-ex",
+        "baidu-tongji-with-multiple-channel",
+        "expandable-chapters"
     ],
     "pluginsConfig": {
         "code": {
@@ -46,6 +46,24 @@
         },
         "baidu-tongji-with-multiple-channel": {
             "token": "ffef2d54db038aef3f29c1067c0f62e4"
+        },
+        "anchor-navigation-ex": {
+            "showLevel": true,
+            "associatedWithSummary": true,
+            "printLog": true,
+            "multipleH1": true,
+            "mode": "float",
+            "showGoTop": true,
+            "float": {
+                "floatIcon": "fa fa-navicon",
+                "showLevelIcon": false,
+                "level1Icon": "fa fa-hand-o-right",
+                "level2Icon": "fa fa-hand-o-right",
+                "level3Icon": "fa fa-hand-o-right"
+            }
+        },
+        "theme-default": {
+            "showLevel": true
         }
     }
 }
