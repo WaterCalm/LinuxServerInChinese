@@ -1,4 +1,3 @@
 # linuxserver/airsonic
 
-123456
-
+待更新
