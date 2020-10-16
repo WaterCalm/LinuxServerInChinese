@@ -6,10 +6,10 @@
     "links": {
         "sidebar": {
             "Home": "https://linuxserver.watercalmx.com",
-			"LinuxServer.io":"https://www.linuxserver.io/",
-			"Docker Hub":"https://hub.docker.com/",
-			"清华镜像源":"https://mirrors.tuna.tsinghua.edu.cn/help/docker-ce/",
-			"DaoCloud":"http://get.daocloud.io/"
+            "LinuxServer.io": "https://www.linuxserver.io/",
+            "Docker Hub": "https://hub.docker.com/",
+            "清华镜像源": "https://mirrors.tuna.tsinghua.edu.cn/help/docker-ce/",
+            "DaoCloud": "http://get.daocloud.io/"
         }
     },
     "styles": {
@@ -25,30 +25,13 @@
         "tbfed-pagefooter",
         "flexible-alerts",
         "splitter",
-        "sharing-plus",
         "theme-comscore",
-        "codeblock-filename",
-		"page-toc-button"
+        "page-toc-button",
+        "baidu-tongji-with-multiple-channel"
     ],
     "pluginsConfig": {
         "code": {
             "copyButtons": true
-        },
-        "sharing": {
-            "douban": false,
-            "facebook": false,
-            "google": false,
-            "pocket": false,
-            "qq": true,
-            "qzone": false,
-            "twitter": false,
-            "weibo": true,
-            "all": [
-                "google",
-                "twitter",
-                "douban",
-                "qzone"
-            ]
         },
         "tbfed-pagefooter": {
             "modify_label": "该页面修订时间：",
@@ -57,9 +40,12 @@
         "flexible-alerts": {
             "style": "flat"
         },
-		"page-toc-button": {
+        "page-toc-button": {
             "maxTocDepth": 2,
             "minTocSize": 2
-           }
+        },
+        "baidu-tongji-with-multiple-channel": {
+            "token": "ffef2d54db038aef3f29c1067c0f62e4"
+        }
     }
 }
