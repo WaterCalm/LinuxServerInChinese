@@ -16,6 +16,14 @@ LinuxServer.io | 中文 →  https://linuxserver.watercalmx.com/
 
 ------
 
+本GitBook会分别推送到GitHub和Gitee
+
+GitHub → https://github.com/WaterCalm/LinuxServerInChinese
+
+Gitee  → https://gitee.com/watercalm/linux-server-in-chinese
+
+------
+
 ## 翻译之外
 
 除了翻译之外，我也尽量体验LinuxServer制作的所有Docker镜像，并跟大家介绍一下镜像里每个开源软件的用处，希望能对大家有帮助。
