@@ -1,5 +1,9 @@
 # Fleet
 
+> [!TIP]
+>
+> 这个工具可能更适合镜像维护者使用，可以通过这篇文章进行了解。对于个人家庭用户来说可能用处并不是很大。LinuxServer的fleet：https://fleet.linuxserver.io
+
 Fleet是一个基于web的镜像管理工具，适用于需要发布、管理大量Docker镜像的组织（个人）。
 
 ------
@@ -125,7 +129,7 @@ GRANT ALL ON `fleet`.* TO 'fleet_user';
 
 ### 配置文件
 
-Fleet在运行时将通过加载 fleet.properties 文件来获取所有配置。它可以位于任何位置，并通过Runtime参数加载：
+Fleet在运行时将通过加载 `fleet.properties` 文件来获取所有配置。它可以位于任何位置，并通过Runtime参数加载：
 
 ```
 # Runtime
@@ -146,15 +150,15 @@ fleet.admin.secret=<a_random_string>
 > [!NOTE]
 >
 > 由于BASH环境的限制，如果将配置放在系统环境变量中，请将配置的属性名中的 `.` 替换为 `_` ，并且变量中不能包含该字符。如，`fleet.app.port=8080` 应该改为 `export fleet_app_port=8080` 。
->
-> | 属性名                    | 说明                                                         |
-> | ------------------------- | ------------------------------------------------------------ |
-> | `fleet.app.port`          | 程序将在这个端口下运行。                                     |
-> | `fleet.admin.secret`      | 一个字符串，作为密码加密的一部分。这个密钥将进一步增强哈希密码的随机性。**一旦创建，请勿修改！**因为它也同步在密码验证时使用，如果Fleet重启后此属性被删除或修改，所有的密码验证将失败，因为密码都是用之前的密钥进行的加密。 |
-> | `fleet.database.driver`   | 连接Fleet的数据库的驱动，应该是 `org.mariadb.jdbc.Driver`    |
-> | `fleet.database.url`      | 连接数据库的 JDBC 链接                                       |
-> | `fleet.database.username` | 可以管理Fleet数据库的用户名，这个用户需要有Fleet数据库的所有权限，当然也可以有其他数据库的权限。 |
-> | `fleet.database.password` | 数据库的用户的密码                                           |
+
+| 属性名                    | 说明                                                         |
+| ------------------------- | ------------------------------------------------------------ |
+| `fleet.app.port`          | 程序将在这个端口下运行。                                     |
+| `fleet.admin.secret`      | 一个字符串，作为密码加密的一部分。这个密钥将进一步增强哈希密码的随机性。**一旦创建，请勿修改！**因为它也同步在密码验证时使用，如果Fleet重启后此属性被删除或修改，所有的密码验证将失败，因为密码都是用之前的密钥进行的加密。 |
+| `fleet.database.driver`   | 连接Fleet的数据库的驱动，应该是 `org.mariadb.jdbc.Driver`    |
+| `fleet.database.url`      | 连接数据库的 JDBC 链接                                       |
+| `fleet.database.username` | 可以管理Fleet数据库的用户名，这个用户需要有Fleet数据库的所有权限，当然也可以有其他数据库的权限。 |
+| `fleet.database.password` | 数据库的用户的密码                                           |
 
 ### Runtime参数
 
@@ -163,10 +167,12 @@ fleet.admin.secret=<a_random_string>
 > [!NOTE]
 >
 > 这些参数与上面的不同，只能通过JVM参数（`-D`）使用。
+>
+> 例：`java -Dfleet.config.base="/fleet/" -jar fleet-2.1.1.jar`
 
 | Runtime参数                  | 说明                                                         |
 | ---------------------------- | ------------------------------------------------------------ |
-| `fleet.config.base`          | 配置文件的绝对路径                                           |
+| `fleet.config.base`          | 配置文件的绝对路径，确切说是fleet工作目录的绝对路径，目录下包括`fleet.properties`文件 |
 | `fleet.show.passwords`       | 在日志中显示明文密码。**不推荐**                             |
 | `fleet.nuke.database`        | **【注意】**将完全擦出并重建Fleet数据库。如果Fleet数据库与Docker Hub相差太多或者镜像显示错误，可以使用这个参数来解决。 |
 | `fleet.skip.sync.on.startup` | 默认情况下，Fleet首次运行时将执行同步。如果设置了次参数，第一次运行时将跳过同步，在设置的时间间隔后进行同步。 |
