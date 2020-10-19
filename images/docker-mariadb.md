@@ -207,9 +207,9 @@ REMOTE_SQL="http://URL1/your.sql,https://URL2/your.sql"
 - 查看容器日志：
   - `docker logs -f mariadb`
 - 查看容器版本号：
-  - `docker inspect -f '{{ index .Config.Labels "build_version" }}' mariadb`
+  - `docker inspect -f '{% raw %}{{% endraw %}{ index .Config.Labels "build_version" }}' mariadb`
 - 查看镜像版本号：
-  - `docker inspect -f '{{ index .Config.Labels "build_version" }}' linuxserver/mariadb`
+  - `docker inspect -f '{% raw %}{{% endraw %}{ index .Config.Labels "build_version" }}' linuxserver/mariadb`
 
 ------
 
@@ -257,3 +257,4 @@ docker run -d \
 >
 > 如果mariadb和phpmyadmin都在同一个虚拟网络下的话，那便不需要将mariadb的3306端口映射到宿主机上。因为在同一个虚拟网络下，不同容器之间是可以互相进行网络通信的。
 
+![image-20201019155431457](https://pic.watercalmx.com/pic/image-20201019155431457.png)
