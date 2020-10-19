@@ -22,6 +22,10 @@ GitHub → https://github.com/WaterCalm/LinuxServerInChinese
 
 Gitee  → https://gitee.com/watercalm/linux-server-in-chinese
 
+如果GitBook中有任何不妥的地方，各位大佬可以在GitHub或Gitee上进行反馈。
+
+也可以给我发邮件：watercalm@163.com
+
 ------
 
 ## 翻译之外
