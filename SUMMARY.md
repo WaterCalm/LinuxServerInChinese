@@ -17,5 +17,7 @@
     * [Fleet](general/fleet.md)
     * [部署SWAG](general/swag.md)
 * Docker镜像
+    * [linuxserver/mariadb](images/docker-mariadb.md)
     * [linuxserver/airsonic](images/docker-airsonic.md)
+    * [linuxserver/bazarr](images/docker-bazarr.md)
 
