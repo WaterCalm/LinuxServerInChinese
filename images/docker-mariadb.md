@@ -28,7 +28,7 @@ Docker Hub → https://hub.docker.com/r/linuxserver/mariadb
 | arm64  | arm64v8-latest |
 | armhf  | arm32v7-latest |
 
-### 拉取镜像
+## 拉取镜像
 
 ```shell
 docker pull linuxserver/mariadb

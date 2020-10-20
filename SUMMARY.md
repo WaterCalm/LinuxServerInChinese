@@ -20,4 +20,6 @@
     * [linuxserver/mariadb](images/docker-mariadb.md)
     * [linuxserver/airsonic](images/docker-airsonic.md)
     * [linuxserver/bazarr](images/docker-bazarr.md)
+    * [linuxserver/beets](images/docker-beets.md)
+    * [linuxserver/boinc](images/docker-boinc.md)
 
