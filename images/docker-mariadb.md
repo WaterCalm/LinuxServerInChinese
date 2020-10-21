@@ -28,13 +28,13 @@ Docker Hub → https://hub.docker.com/r/linuxserver/mariadb
 | arm64  | arm64v8-latest |
 | armhf  | arm32v7-latest |
 
+------
+
 ## 拉取镜像
 
 ```shell
 docker pull linuxserver/mariadb
 ```
-
-
 
 ------
 
@@ -158,7 +158,7 @@ Docker镜像在使用的时候需要配置一些参数，这些参数使用 `:` 
 
 ------
 
-## 安装应用
+## 安装说明
 
 如果在创建容器时未设置数据库的root密码（日志中会有警告），可以进入Docker容器后使用 `mysqladmin -u root password <PASSWORD>` 设置root密码。
 

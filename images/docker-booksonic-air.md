@@ -1,12 +1,12 @@
-# linuxserver/beets
+# linuxserver/booksonic-air
 
-Beets → http://beets.io/
+Booksonic-air → http://booksonic.org/
 
-GitHub → https://github.com/linuxserver/docker-beets
+GitHub → https://github.com/linuxserver/docker-booksonic-air
 
-Docker Hub → https://hub.docker.com/r/linuxserver/beets
+Docker Hub → https://hub.docker.com/r/linuxserver/booksonic-air
 
-[Beets](http://beets.io/) 是一个音乐库管理工具，而不仅仅是一个音乐播放器。它包含一个简单的播放器插件和网页播放器，但它更主要的功能是将音乐发送给专业播放设备。
+[Booksonic-air](http://booksonic.org/) 是一个可以随时随地访问你的有声读物的平台。该平台由用于流式传输有声读物的服务器 Booksonic Air组成，是基于Booksonic服务器发展而来的。Booksonic App是基于 DSub 的安卓App，用来连接到Booksonic-Air服务器。
 
 ------
 
@@ -14,7 +14,7 @@ Docker Hub → https://hub.docker.com/r/linuxserver/beets
 
 得益于docker的跨平台属性，我们的镜像也支持多架构（如，x86-64、arm64、armhf）。
 
-直接拉取 `linuxserver/beets` 应该就可以自动获取适合你系统架构的版本，当然你也可以通过 tag 获取特定的版本。
+直接拉取 `linuxserver/booksonic-air` 应该就可以自动获取适合你系统架构的版本，当然你也可以通过 tag 获取特定的版本。
 
 | 架构   | Tag            |
 | ------ | -------------- |
@@ -28,20 +28,17 @@ Docker Hub → https://hub.docker.com/r/linuxserver/beets
 
 该镜像可通过不同tag获取不同的版本。最新的tag通常提供了最新的稳定版本，其他的可能是正在开发的版本，需要谨慎使用。
 
-| Tag     | 说明                                                         |
-| ------- | ------------------------------------------------------------ |
-| latest  | Beets的稳定发行版                                            |
-| nightly | 基于最新的Beets的git仓库而构建的，可能是不稳定的版本，但可能是适合高级用户使用的版本 |
+| Tag    | 说明                      |
+| ------ | ------------------------- |
+| latest | booksonic-air的稳定发行版 |
 
 ------
 
 ## 拉取镜像
 
 ```shell
-docker pull linuxserver/beets
+docker pull linuxserver/booksonic-air
 ```
-
-
 
 ------
 
@@ -57,36 +54,40 @@ docker pull linuxserver/beets
 ---
 version: "2.1"
 services:
-  beets:
-    image: linuxserver/beets
-    container_name: beets
+  booksonic-air:
+    image: linuxserver/booksonic-air
+    container_name: booksonic-air
     environment:
       - PUID=1000
       - PGID=1000
       - TZ=Europe/London
+      - CONTEXT_PATH=url-base
     volumes:
       - </path/to/appdata/config>:/config
-      - </path/to/music/library>:/music
-      - </path/to/ingest>:/downloads
+      - </path/to/audiobooks>:/audiobooks
+      - </path/to/podcasts>:/podcasts
+      - </path/to/othermedia>:/othermedia
     ports:
-      - 8337:8337
+      - 4040:4040
     restart: unless-stopped
 ```
 
 ### docker cli
 
 ```shell
-docker run -d \
-  --name=beets \
+docker create \
+  --name=booksonic-air \
   -e PUID=1000 \
   -e PGID=1000 \
   -e TZ=Europe/London \
-  -p 8337:8337 \
+  -e CONTEXT_PATH=url-base \
+  -p 4040:4040 \
   -v </path/to/appdata/config>:/config \
-  -v </path/to/music/library>:/music \
-  -v </path/to/ingest>:/downloads \
+  -v </path/to/audiobooks>:/audiobooks \
+  -v </path/to/podcasts>:/podcasts \
+  -v </path/to/othermedia>:/othermedia \
   --restart unless-stopped \
-  linuxserver/beets
+  linuxserver/booksonic-air
 ```
 
 ## 参数
@@ -95,25 +96,27 @@ Docker镜像在使用的时候需要配置一些参数，这些参数使用 `:` 
 
 ### 端口（`-p`）
 
-| port   | 说明        |
-| ------ | ----------- |
-| `8337` | Web管理界面 |
+| port   | 说明          |
+| ------ | ------------- |
+| `4040` | 应用的Web界面 |
 
 ### 环境变量（`-e`）
 
-| env                | 说明                                       |
-| ------------------ | ------------------------------------------ |
-| `PUID=1000`        | 用户的 UID，详见下面的说明                 |
-| `PGID=1000`        | 用户的 GID，详见下面的说明                 |
-| `TZ=Europe/London` | 设置时区，在国内的话可以使用 Asia/Shanghai |
+| env                     | 说明                                       |
+| ----------------------- | ------------------------------------------ |
+| `PUID=1000`             | 用户的 UID，详见下面的说明                 |
+| `PGID=1000`             | 用户的 GID，详见下面的说明                 |
+| `TZ=Europe/London`      | 设置时区，在国内的话可以使用 Asia/Shanghai |
+| `CONTEXT_PATH=url-base` | 用于设置反向代理等功能的URL                |
 
 ### 卷映射（`-v`）
 
-| volume       | 说明         |
-| ------------ | ------------ |
-| `/config`    | 配置文件     |
-| `/music`     | 音乐库       |
-| `/downloads` | 未处理的音乐 |
+| volume        | 说明         |
+| ------------- | ------------ |
+| `/config`     | 配置文件     |
+| `/audiobooks` | 有声读物     |
+| `/podcasts`   | 播客         |
+| `/othermedia` | 其他媒体文件 |
 
 ------
 
@@ -158,29 +161,29 @@ Docker镜像在使用的时候需要配置一些参数，这些参数使用 `:` 
 
 ## 安装说明
 
-无需特殊设置，启动容器后即可使用
+该镜像不支持自动升级，建议通过重新安装来升级服务器。默认用户名和密码都是 `admin` 。
 
 ------
 
 ## 支持
 
 - 进入容器：
-  - `docker exec -it beets /bin/bash`
+  - `docker exec -it booksonic-air /bin/bash`
 - 查看容器日志：
-  - `docker logs -f beets`
+  - `docker logs -f booksonic-air`
 - 查看容器版本号：
-  - `docker inspect -f '{% raw %}{{% endraw %}{ index .Config.Labels "build_version" }}' beets`
+  - `docker inspect -f '{% raw %}{{% endraw %}{ index .Config.Labels "build_version" }}' booksonic-air`
 - 查看镜像版本号：
-  - `docker inspect -f '{% raw %}{{% endraw %}{ index .Config.Labels "build_version" }}' linuxserver/beets`
+  - `docker inspect -f '{% raw %}{{% endraw %}{ index .Config.Labels "build_version" }}' linuxserver/booksonic-air`
 
 ------
 
 ## 翻译之外
 
-emmm……说实话……用了半天没弄明白怎么用。
+如果不使用反向代理的话，可以先不设置 `CONTEXT_PATH` ，直接用IP访问，另外在设置这个变量的时候不需要带端口，否则可能会启动服务失败。
 
-打开WebUI是空白的……然后查了官网的文档，看都是用命令行操作的。也试了几首音乐但都无法导入……
+界面大家都很熟悉吧？ 跟 Airsonic 是一样的，但在设置里原生却没有英文，使用方法都是一样的。
 
-看官网的介绍该工具是给痴迷的音乐发烧友用的……可能我不够痴迷和发烧吧……所以……体验失败……
+![image-20201021112628813](https://pic.watercalmx.com/pic/image-20201021112628813.png)
 
-![image-20201020132550745](https://pic.watercalmx.com/pic/image-20201020132550745.png)
+![image-20201021112920694](https://pic.watercalmx.com/pic/image-20201021112920694.png)

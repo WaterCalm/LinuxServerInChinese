@@ -22,4 +22,7 @@
     * [linuxserver/bazarr](images/docker-bazarr.md)
     * [linuxserver/beets](images/docker-beets.md)
     * [linuxserver/boinc](images/docker-boinc.md)
+    * [linuxserver/booksonic-air](images/docker-booksonic-air.md)
+    * [linuxserver/booksonic](images/docker-booksonic.md)
+    * [linuxserver/bookstack](images/docker-bookstack.md)
 

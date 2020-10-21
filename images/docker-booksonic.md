@@ -1,12 +1,12 @@
-# linuxserver/bazarr
+# linuxserver/booksonic
 
-Bazarr → https://www.bazarr.media/
+Booksonic → http://booksonic.org/
 
-GitHub → https://github.com/linuxserver/docker-bazarr
+GitHub → https://github.com/linuxserver/docker-booksonic
 
-Docker Hub → https://hub.docker.com/r/linuxserver/bazarr
+Docker Hub → https://hub.docker.com/r/linuxserver/booksonic
 
-[Bazarr](https://www.bazarr.media/)需要和Sonarr或Radarr配套使用，它可以根据你的需求管理、下载字幕。你只要选择你喜欢的电视节目或电影，Bazarr将解决其他问题。
+[Booksonic](http://booksonic.org/) 是可以将你的有声读物流式传输到你的PC和手机上的服务器和应用。大多数功能在其他支持subsonic的平台上也适用。
 
 ------
 
@@ -14,7 +14,7 @@ Docker Hub → https://hub.docker.com/r/linuxserver/bazarr
 
 得益于docker的跨平台属性，我们的镜像也支持多架构（如，x86-64、arm64、armhf）。
 
-直接拉取 `linuxserver/bazarr` 应该就可以自动获取适合你系统架构的版本，当然你也可以通过 tag 获取特定的版本。
+直接拉取 `linuxserver/booksonic` 应该就可以自动获取适合你系统架构的版本，当然你也可以通过 tag 获取特定的版本。
 
 | 架构   | Tag            |
 | ------ | -------------- |
@@ -24,13 +24,22 @@ Docker Hub → https://hub.docker.com/r/linuxserver/bazarr
 
 ------
 
+## 版本标签
+
+该镜像可通过不同tag获取不同的版本。最新的tag通常提供了最新的稳定版本，其他的可能是正在开发的版本，需要谨慎使用。
+
+| Tag        | 说明                   |
+| ---------- | ---------------------- |
+| latest     | booksonic 的稳定发行版 |
+| prerelease | booksonic的预览发行版  |
+
+------
+
 ## 拉取镜像
 
 ```shell
-docker pull linuxserver/bazarr
+docker pull linuxserver/booksonic
 ```
-
-
 
 ------
 
@@ -46,20 +55,21 @@ docker pull linuxserver/bazarr
 ---
 version: "2.1"
 services:
-  bazarr:
-    image: linuxserver/bazarr
-    container_name: bazarr
+  booksonic:
+    image: linuxserver/booksonic
+    container_name: booksonic
     environment:
       - PUID=1000
       - PGID=1000
       - TZ=Europe/London
-      - UMASK_SET=022 #optional
+      - CONTEXT_PATH=url-base
     volumes:
-      - </path/to/bazarr/config>:/config
-      - </path/to/movies>:/movies
-      - </path/to/tv>:/tv
+      - </path/to/appdata/config>:/config
+      - </path/to/audiobooks>:/audiobooks
+      - </path/to/podcasts>:/podcasts
+      - </path/to/othermedia>:/othermedia
     ports:
-      - 6767:6767
+      - 4040:4040
     restart: unless-stopped
 ```
 
@@ -67,17 +77,18 @@ services:
 
 ```shell
 docker run -d \
-  --name=bazarr \
+  --name=booksonic \
   -e PUID=1000 \
   -e PGID=1000 \
   -e TZ=Europe/London \
-  -e UMASK_SET=022 `#optional` \
-  -p 6767:6767 \
-  -v </path/to/bazarr/config>:/config \
-  -v </path/to/movies>:/movies \
-  -v </path/to/tv>:/tv \
+  -e CONTEXT_PATH=url-base \
+  -p 4040:4040 \
+  -v </path/to/appdata/config>:/config \
+  -v </path/to/audiobooks>:/audiobooks \
+  -v </path/to/podcasts>:/podcasts \
+  -v </path/to/othermedia>:/othermedia \
   --restart unless-stopped \
-  linuxserver/bazarr
+  linuxserver/booksonic
 ```
 
 ## 参数
@@ -86,26 +97,27 @@ Docker镜像在使用的时候需要配置一些参数，这些参数使用 `:` 
 
 ### 端口（`-p`）
 
-| port   | 说明               |
-| ------ | ------------------ |
-| `6767` | HTTP的内部访问端口 |
+| port   | 说明          |
+| ------ | ------------- |
+| `4040` | 应用的Web界面 |
 
 ### 环境变量（`-e`）
 
-| env                   | 说明                                       |
-| --------------------- | ------------------------------------------ |
-| `PUID=1000`           | 用户的 UID，详见下面的说明                 |
-| `PGID=1000`           | 用户的 GID，详见下面的说明                 |
-| `TZ=Europe/London`    | 设置时区，在国内的话可以使用 Asia/Shanghai |
-| `UMASK_SET=022`       | 控制由Bazarr生成的文件的权限               |
+| env                     | 说明                                       |
+| ----------------------- | ------------------------------------------ |
+| `PUID=1000`             | 用户的 UID，详见下面的说明                 |
+| `PGID=1000`             | 用户的 GID，详见下面的说明                 |
+| `TZ=Europe/London`      | 设置时区，在国内的话可以使用 Asia/Shanghai |
+| `CONTEXT_PATH=url-base` | 用于设置反向代理等功能的URL                |
 
 ### 卷映射（`-v`）
 
-| volume      | 说明               |
-| ----------- | ------------------ |
-| `/config`   | Bazarr的数据       |
-| `/movies`   | 电影目录           |
-| `/tv`       | 电视节目的目录     |
+| volume        | 说明         |
+| ------------- | ------------ |
+| `/config`     | 配置文件     |
+| `/audiobooks` | 有声读物     |
+| `/podcasts`   | 播客         |
+| `/othermedia` | 其他媒体文件 |
 
 ------
 
@@ -150,24 +162,25 @@ Docker镜像在使用的时候需要配置一些参数，这些参数使用 `:` 
 
 ## 安装说明
 
-- 启动成功后，程序的地址是 http://<宿主机IP>:6767
-- 在Web管理界面中完成所有参数设置后，才能保存配置。
+默认用户名和密码都是 `admin` 。
 
 ------
 
 ## 支持
 
 - 进入容器：
-  - `docker exec -it bazarr /bin/bash`
+  - `docker exec -it booksonic /bin/bash`
 - 查看容器日志：
-  - `docker logs -f bazarr`
+  - `docker logs -f booksonic`
 - 查看容器版本号：
-  - `docker inspect -f '{% raw %}{{% endraw %}{ index .Config.Labels "build_version" }}' bazarr`
+  - `docker inspect -f '{% raw %}{{% endraw %}{ index .Config.Labels "build_version" }}' booksonic`
 - 查看镜像版本号：
-  - `docker inspect -f '{% raw %}{{% endraw %}{ index .Config.Labels "build_version" }}' linuxserver/bazarr`
+  - `docker inspect -f '{% raw %}{{% endraw %}{ index .Config.Labels "build_version" }}' linuxserver/booksonic`
 
 ------
 
 ## 翻译之外
 
-暂未试用
+在官网上看到，目前已经推荐使用Booksonic Air，所以可以直接移步 [linuxserver/booksonic-air](images/docker-booksonic-air.md)
+
+![image-20201021111415370](https://pic.watercalmx.com/pic/image-20201021111415370.png)
