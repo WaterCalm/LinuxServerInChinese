@@ -27,7 +27,8 @@
         "theme-comscore",
         "anchor-navigation-ex",
         "baidu-tongji-with-multiple-channel",
-        "expandable-chapters"
+        "expandable-chapters",
+		"google-tongji-with-multiple-channel"
     ],
     "pluginsConfig": {
         "code": {
@@ -47,6 +48,9 @@
         "baidu-tongji-with-multiple-channel": {
             "token": "ffef2d54db038aef3f29c1067c0f62e4"
         },
+		"google-tongji-with-multiple-channel": {
+		    "token": "G-354JQKNZNL"
+		},
         "anchor-navigation-ex": {
             "showLevel": true,
             "associatedWithSummary": true,
