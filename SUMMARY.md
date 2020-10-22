@@ -25,4 +25,7 @@
     * [linuxserver/booksonic-air](images/docker-booksonic-air.md)
     * [linuxserver/booksonic](images/docker-booksonic.md)
     * [linuxserver/bookstack](images/docker-bookstack.md)
+    * [linuxserver/calibre-web](images/docker-calibre-web.md)
+    * [linuxserver/calibre](images/docker-calibre.md)
+    * [linuxserver/cardigann](images/docker-cardigann.md)
 

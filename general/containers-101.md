@@ -44,7 +44,7 @@ docker run hello-world
 
 在默认情况下，正在运行的容器和系统环境是完全隔离的，如果你在容器内运行了一个web服务器，外界是无法访问容器内80和443的端口。除非我们使用 `-p` 来把容器内的端口映射到宿主机上。
 
-> ![WARNING]
+> [!WARNING]
 >
 > 例子中使用的 linuxserver/letsencrypt 镜像已经被 linuxserver/swag 替代，但不影响演示。
 
