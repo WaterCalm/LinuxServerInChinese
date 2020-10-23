@@ -28,4 +28,6 @@
     * [linuxserver/calibre-web](images/docker-calibre-web.md)
     * [linuxserver/calibre](images/docker-calibre.md)
     * [linuxserver/cardigann](images/docker-cardigann.md)
+    * [linuxserver/clarkson](images/docker-clarkson.md)
+    * [linuxserver/cloud9](images/docker-cloud9.md)
 
