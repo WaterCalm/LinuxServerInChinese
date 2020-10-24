@@ -30,4 +30,7 @@
     * [linuxserver/cardigann](images/docker-cardigann.md)
     * [linuxserver/clarkson](images/docker-clarkson.md)
     * [linuxserver/cloud9](images/docker-cloud9.md)
+    * [linuxserver/code-server](images/docker-code-server.md)
+    * [linuxserver/codiad](images/docker-codiad.md)
+    * [linuxserver/codimd](images/docker-codimd.md)
 
