@@ -194,6 +194,8 @@ Docker镜像在使用的时候需要配置一些参数，这些参数使用 `:` 
 
 总的来说Calibre-web是一个管理图书的工具，它并不能在线阅读，但可以进行下载、分类、转换等操作。可以很方便地将你的收集的电子书与他人分享。建议配合 Calibre 客户端使用，用 Calibre 客户端更新数据库后，Calibre-web 也可以实时更新。
 
+与之相似的镜像还有 [linuxserver/cops](images/docker-cops.md) 
+
 ![image-20201022113752658](https://pic.watercalmx.com/pic/image-20201022113752658.png)
 
 ![image-20201022115632149](https://pic.watercalmx.com/pic/image-20201022115632149.png)

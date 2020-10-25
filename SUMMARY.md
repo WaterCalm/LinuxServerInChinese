@@ -33,4 +33,7 @@
     * [linuxserver/code-server](images/docker-code-server.md)
     * [linuxserver/codiad](images/docker-codiad.md)
     * [linuxserver/codimd](images/docker-codimd.md)
+    * [linuxserver/cops](images/docker-cops.md)
+    * [linuxserver/couchpotato](images/docker-couchpotato.md)
+    * [linuxserver/daapd](images/docker-daapd.md)
 
