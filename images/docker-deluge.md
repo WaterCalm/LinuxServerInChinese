@@ -1,16 +1,21 @@
-# linuxserver/daapd
+# linuxserver/deluge
 
 > [!TIP]
 >
 > 前半部分是翻译官方的文档，最后一部分是我的简单试用（个别软件会深度试用），如果对Docker已经有一定的了解了，可以直接跳转到最后面 [翻译之外](#翻译之外) 这部分来查看。
 
-Daapd → https://ejurgensen.github.io/forked-daapd/
+Deluge → http://deluge-torrent.org/
 
-GitHub → https://github.com/linuxserver/docker-daapd
+GitHub → https://github.com/linuxserver/docker-deluge
 
-Docker Hub → https://hub.docker.com/r/linuxserver/daapd
+Docker Hub → https://hub.docker.com/r/linuxserver/deluge
 
-[Codimd](https://demo.codimd.org/)(iTunes)媒体服务器，支持 AirPlay 设备、Apple Remote（或兼容）、Chromecast、MPD和网络电台。
+[Deluge](http://deluge-torrent.org/) 是一个轻量级、免费的跨平台BitTorrent客户端。
+
+- 完全加密
+- Web界面
+- 插件系统
+- 更多...
 
 ------
 
@@ -18,7 +23,7 @@ Docker Hub → https://hub.docker.com/r/linuxserver/daapd
 
 得益于docker的跨平台属性，我们的镜像也支持多架构（如，x86-64、arm64、armhf）。
 
-直接拉取 `linuxserver/daapd` 应该就可以自动获取适合你系统架构的版本，当然你也可以通过 tag 获取特定的版本。
+直接拉取 `linuxserver/deluge` 应该就可以自动获取适合你系统架构的版本，当然你也可以通过 tag 获取特定的版本。
 
 | 架构   | Tag            |
 | ------ | -------------- |
@@ -32,7 +37,7 @@ Docker Hub → https://hub.docker.com/r/linuxserver/daapd
 ## 拉取镜像
 
 ```shell
-docker pull linuxserver/daapd
+docker pull linuxserver/deluge
 ```
 
 ------
@@ -49,17 +54,19 @@ docker pull linuxserver/daapd
 ---
 version: "2.1"
 services:
-  daapd:
-    image: linuxserver/daapd
-    container_name: daapd
+  deluge:
+    image: linuxserver/deluge
+    container_name: deluge
     network_mode: host
     environment:
       - PUID=1000
       - PGID=1000
       - TZ=Europe/London
+      - UMASK_SET=022 #optional
+      - DELUGE_LOGLEVEL=error #optional
     volumes:
-      - <path to data>:/config
-      - <path to music>:/music
+      - /path/to/deluge/config:/config
+      - /path/to/your/downloads:/downloads
     restart: unless-stopped
 ```
 
@@ -67,15 +74,17 @@ services:
 
 ```shell
 docker run -d \
-  --name=daapd \
+  --name=deluge \
   --net=host \
   -e PUID=1000 \
   -e PGID=1000 \
   -e TZ=Europe/London \
-  -v <path to data>:/config \
-  -v <path to music>:/music \
+  -e UMASK_SET=022 `#optional` \
+  -e DELUGE_LOGLEVEL=error `#optional` \
+  -v /path/to/deluge/config:/config \
+  -v /path/to/your/downloads:/downloads \
   --restart unless-stopped \
-  linuxserver/daapd
+  linuxserver/deluge
 ```
 
 ## 参数
@@ -84,29 +93,32 @@ Docker镜像在使用的时候需要配置一些参数，这些参数使用 `:` 
 
 ### 端口（`-p`）
 
-| port | 说明    |
-| ---- | ------- |
-| 无   | 无 |
+| port | 说明 |
+| ---- | ---- |
+| 无   | 无   |
 
 ### 网络设置（`--net`）
-| network | 说明    |
-| ---- | ------- |
-| `--net=host`   | 需要共享宿主机的网络 |
+
+| network      | 说明                       |
+| ------------ | -------------------------- |
+| `--net=host` | 需要共享宿主机的网络，必填 |
 
 ### 环境变量（`-e`）
 
-| env                | 说明                                       |
-| ------------------ | ------------------------------------------ |
-| `PUID=1000`        | 用户的 UID，详见下面的说明                 |
-| `PGID=1000`        | 用户的 GID，详见下面的说明                 |
-| `TZ=Europe/London` | 设置时区，在国内的话可以使用 Asia/Shanghai |
+| env                     | 说明                                                         |
+| ----------------------- | ------------------------------------------------------------ |
+| `PUID=1000`             | 用户的 UID，详见下面的说明                                   |
+| `PGID=1000`             | 用户的 GID，详见下面的说明                                   |
+| `TZ=Europe/London`      | 设置时区，在国内的话可以使用 Asia/Shanghai                   |
+| `UMASK_SET=022`         | deluge的umask设置，默认为 022                                |
+| `DELUGE_LOGLEVEL=error` | 设置Deluge运行时的日志输出，默认是输出deluged的info和delgued-web的warning日志。 |
 
 ### 卷映射（`-v`）
 
-| volume    | 说明               |
-| --------- | ------------------ |
-| `/config` | 配置文件所在路径   |
-| `/music`  | 映射你的音乐文件夹 |
+| volume       | 说明             |
+| ------------ | ---------------- |
+| `/config`    | 配置文件所在路径 |
+| `/downloads` | 种子下载文件集   |
 
 ------
 
@@ -151,37 +163,33 @@ Docker镜像在使用的时候需要配置一些参数，这些参数使用 `:` 
 
 ## 安装说明
 
-映射你的音乐文件夹，并在同一网络下打开itunes
+管理界面位于 `http://ip:8112` ，默认的用户名/密码是：`admin/deluge`
 
-Web界面是 http://ip:3689
+更改登陆密码（推荐）：`Preferences->Interface->Password`
 
-查看 [官方介绍](https://ejurgensen.github.io/forked-daapd/) 了解更多高级设置
+更改下载位置：`Preferences->Downloads`，使用 `/downloads`
 
 ------
 
 ## 支持
 
 - 进入容器：
-  - `docker exec -it daapd /bin/bash`
+  - `docker exec -it deluge /bin/bash`
 - 查看容器日志：
-  - `docker logs -f daapd`
+  - `docker logs -f deluge`
 - 查看容器版本号：
-  - `docker inspect -f '{% raw %}{{% endraw %}{ index .Config.Labels "build_version" }}' daapd`
+  - `docker inspect -f '{% raw %}{{% endraw %}{ index .Config.Labels "build_version" }}' deluge`
 - 查看镜像版本号：
-  - `docker inspect -f '{% raw %}{{% endraw %}{ index .Config.Labels "build_version" }}' linuxserver/daapd`
+  - `docker inspect -f '{% raw %}{{% endraw %}{ index .Config.Labels "build_version" }}' linuxserver/deluge`
 
 ------
 
 ## 翻译之外
 
-不知道是不是我的设置的问题，直接启动容器后无法通过web访问，但修改配置文件设置password之后，就能登录了。
+比较常见的种子下载工具，手头没种子，未来可以尝试一下。
 
-打开web界面，去到music文件夹把音乐添加到播放列表中，然后在右下角可以看到能推送到的设备，开启推送后播放，对应的音响就开始播放音乐了。
+用默认密码 deluge 登录后即可使用，可以切换中文。
 
-看管理页面的设置，还可以添加网络电台等源。
+![image-20201026112351607](https://pic.watercalmx.com/pic/image-20201026112351607.png)
 
-这个界面感觉要比airsonic要友好，也挺适合餐厅、茶室使用的，只要音箱都在同一网络下就可以。
-
-![image-20201025164037745](https://pic.watercalmx.com/pic/image-20201025164037745.png)
-
-![image-20201025164053984](https://pic.watercalmx.com/pic/image-20201025164053984.png)
+![image-20201026112446877](https://pic.watercalmx.com/pic/image-20201026112446877.png)

@@ -1,16 +1,16 @@
-# linuxserver/couchpotato
+# linuxserver/ddclient
 
 > [!TIP]
 >
 > 前半部分是翻译官方的文档，最后一部分是我的简单试用（个别软件会深度试用），如果对Docker已经有一定的了解了，可以直接跳转到最后面 [翻译之外](#翻译之外) 这部分来查看。
 
-Couchpotato → https://couchpota.to/
+Ddclient → https://github.com/ddclient/ddclient
 
-GitHub → https://github.com/linuxserver/docker-couchpotato
+GitHub → https://github.com/linuxserver/docker-ddclient
 
-Docker Hub → https://hub.docker.com/r/linuxserver/couchpotato
+Docker Hub → https://hub.docker.com/r/linuxserver/ddclient
 
-[Couchpotato](https://couchpota.to/) 是一个 NZB 和 Torrent 自动下载器。你可以更新 `movies I want` 列表，它将每隔一段时间搜索一次 NZB/Torrent 服务器。如果找到对应的电影，它将发送到 SABnzbd 上或下载 torrent。
+[Ddclient](https://github.com/ddclient/ddclient) 是一个Perl编写的客户端，用来通过动态DNS服务商来更新你的动态DNS。最初由 Paul Burry 编写，现在主要由 wimpunk 维护。它不仅具有更新动态DNS的功能，也可以通过几种不同的方式获取到你真实的外网IP。
 
 ------
 
@@ -18,7 +18,7 @@ Docker Hub → https://hub.docker.com/r/linuxserver/couchpotato
 
 得益于docker的跨平台属性，我们的镜像也支持多架构（如，x86-64、arm64、armhf）。
 
-直接拉取 `linuxserver/couchpotato` 应该就可以自动获取适合你系统架构的版本，当然你也可以通过 tag 获取特定的版本。
+直接拉取 `linuxserver/ddclient` 应该就可以自动获取适合你系统架构的版本，当然你也可以通过 tag 获取特定的版本。
 
 | 架构   | Tag            |
 | ------ | -------------- |
@@ -32,7 +32,7 @@ Docker Hub → https://hub.docker.com/r/linuxserver/couchpotato
 ## 拉取镜像
 
 ```shell
-docker pull linuxserver/couchpotato
+docker pull linuxserver/ddclient
 ```
 
 ------
@@ -49,20 +49,15 @@ docker pull linuxserver/couchpotato
 ---
 version: "2.1"
 services:
-  couchpotato:
-    image: linuxserver/couchpotato
-    container_name: couchpotato
+  ddclient:
+    image: linuxserver/ddclient
+    container_name: ddclient
     environment:
       - PUID=1000
       - PGID=1000
       - TZ=Europe/London
-      - UMASK_SET=022
     volumes:
-      - /path/to/appdata/config:/config
-      - /path/to/downloads:/downloads
-      - /path/to/movies:/movies
-    ports:
-      - 5050:5050
+      - <path to data>:/config
     restart: unless-stopped
 ```
 
@@ -70,17 +65,13 @@ services:
 
 ```shell
 docker run -d \
-  --name=couchpotato \
+  --name=ddclient \
   -e PUID=1000 \
   -e PGID=1000 \
   -e TZ=Europe/London \
-  -e UMASK_SET=022 \
-  -p 5050:5050 \
-  -v /path/to/appdata/config:/config \
-  -v /path/to/downloads:/downloads \
-  -v /path/to/movies:/movies \
+  -v <path to data>:/config \
   --restart unless-stopped \
-  linuxserver/couchpotato
+  linuxserver/ddclient
 ```
 
 ## 参数
@@ -89,9 +80,9 @@ Docker镜像在使用的时候需要配置一些参数，这些参数使用 `:` 
 
 ### 端口（`-p`）
 
-| port   | 说明    |
-| ------ | ------- |
-| `5050` | WEB界面 |
+| port | 说明 |
+| ---- | ---- |
+| 无   | 无   |
 
 ### 环境变量（`-e`）
 
@@ -100,15 +91,12 @@ Docker镜像在使用的时候需要配置一些参数，这些参数使用 `:` 
 | `PUID=1000`        | 用户的 UID，详见下面的说明                 |
 | `PGID=1000`        | 用户的 GID，详见下面的说明                 |
 | `TZ=Europe/London` | 设置时区，在国内的话可以使用 Asia/Shanghai |
-| `UMASK_SET=022`    | 默认的是022，设置文件的umask               |
 
 ### 卷映射（`-v`）
 
-| volume       | 说明             |
-| ------------ | ---------------- |
-| `/config`    | 配置文件所在路径 |
-| `/downloads` | 下载文件夹       |
-| `/movies`    | 电影分享文件夹   |
+| volume    | 说明             |
+| --------- | ---------------- |
+| `/config` | 配置文件所在路径 |
 
 ------
 
@@ -153,45 +141,42 @@ Docker镜像在使用的时候需要配置一些参数，这些参数使用 `:` 
 
 ## 安装说明
 
-访问WEB界面：`http://ip:5050` 
+编辑 /config 卷下面的 ddclient.conf 文件。
 
-更多信息，请查看官网 → https://couchpota.to/
+该配置文件中有很多供应商的程序供你选择，你基本上只需要取消注释并提供对应的用户名/密码即可。如果你修改了ddcliet.conf，ddclient将自动重启并重新读取配置。
 
 ------
 
 ## 支持
 
 - 进入容器：
-  - `docker exec -it couchpotato /bin/bash`
+  - `docker exec -it ddclient /bin/bash`
 - 查看容器日志：
-  - `docker logs -f couchpotato`
+  - `docker logs -f ddclient`
 - 查看容器版本号：
-  - `docker inspect -f '{% raw %}{{% endraw %}{ index .Config.Labels "build_version" }}' couchpotato`
+  - `docker inspect -f '{% raw %}{{% endraw %}{ index .Config.Labels "build_version" }}' ddclient`
 - 查看镜像版本号：
-  - `docker inspect -f '{% raw %}{{% endraw %}{ index .Config.Labels "build_version" }}' linuxserver/couchpotato`
+  - `docker inspect -f '{% raw %}{{% endraw %}{ index .Config.Labels "build_version" }}' linuxserver/ddclient`
 
 ------
 
 ## 翻译之外
 
-首次启动会进行一些设置，主要是设置用户名、密码并选择下载器和搜索的网站，也提示有插件可以使用，插件的功能就是浏览类似于 IMDB 这种网站时，对某个电影感兴趣，可以直接加入清单中。
+这个使用比较简单，运行容器后修改配置文件就行，但在配置文件中找了下。支持以下几个DDNS服务商：
 
-设置完成后，要重启下容器才生效。
-
-在加入清单之前，会选择清晰度之类的东西，加入清单后就开始搜索。
-
-可能对中文资源支持不是很好，因为目前我还没安装支持的下载器，等后续安装了后再继续试用一下。
-
-![image-20201025161023998](https://pic.watercalmx.com/pic/image-20201025161023998.png)
-
-![image-20201025161137280](https://pic.watercalmx.com/pic/image-20201025161137280.png)
-
-![image-20201025161201560](https://pic.watercalmx.com/pic/image-20201025161201560.png)
-
-![image-20201025161227195](https://pic.watercalmx.com/pic/image-20201025161227195.png)
-
-![image-20201025161627105](https://pic.watercalmx.com/pic/image-20201025161627105.png)
-
-![image-20201025161826467](https://pic.watercalmx.com/pic/image-20201025161826467.png)
-
-![image-20201025162005657](https://pic.watercalmx.com/pic/image-20201025162005657.png)
+- dyndns.org
+- ZoneEdit (zoneedit.com)
+- EasyDNS (easydns.com)
+- Hammernode (hn.org)
+- dslreports.com
+- OrgDNS.org
+- dnspark.com
+- NameCheap (namecheap.com)
+- Loopia (loopia.se)
+- ChangeIP (changeip.com)
+- DtDNS (www.dtdns.com)
+- CloudFlare (www.cloudflare.com)
+- Google Domains (www.google.com/domains)
+- Duckdns (http://www.duckdns.org/)
+- Freemyip (http://freemyip.com/)
+- MyOnlinePortal (http://myonlineportal.net)

@@ -1,5 +1,9 @@
 # linuxserver/cloud9
 
+> [!TIP]
+>
+> 前半部分是翻译官方的文档，最后一部分是我的简单试用（个别软件会深度试用），如果对Docker已经有一定的了解了，可以直接跳转到最后面 [翻译之外](#翻译之外) 这部分来查看。
+
 Cloud9 → https://github.com/c9/core
 
 GitHub → https://github.com/linuxserver/docker-cloud9

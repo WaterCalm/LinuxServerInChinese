@@ -1,16 +1,16 @@
-# linuxserver/couchpotato
+# linuxserver/davos
 
 > [!TIP]
 >
 > 前半部分是翻译官方的文档，最后一部分是我的简单试用（个别软件会深度试用），如果对Docker已经有一定的了解了，可以直接跳转到最后面 [翻译之外](#翻译之外) 这部分来查看。
 
-Couchpotato → https://couchpota.to/
+Davos → https://github.com/linuxserver/davos
 
-GitHub → https://github.com/linuxserver/docker-couchpotato
+GitHub → https://github.com/linuxserver/docker-davos
 
-Docker Hub → https://hub.docker.com/r/linuxserver/couchpotato
+Docker Hub → https://hub.docker.com/r/linuxserver/davos
 
-[Couchpotato](https://couchpota.to/) 是一个 NZB 和 Torrent 自动下载器。你可以更新 `movies I want` 列表，它将每隔一段时间搜索一次 NZB/Torrent 服务器。如果找到对应的电影，它将发送到 SABnzbd 上或下载 torrent。
+[Davos](https://github.com/linuxserver/davos) 是一个FTP自动化工具，可以定期扫描主机上的新文件。可以处于多种目的对其进行配置，比如侦听特定的文件对其进行移动或下载。它还支持完成通知以及提供API通知，使工作流更顺畅。
 
 ------
 
@@ -18,7 +18,7 @@ Docker Hub → https://hub.docker.com/r/linuxserver/couchpotato
 
 得益于docker的跨平台属性，我们的镜像也支持多架构（如，x86-64、arm64、armhf）。
 
-直接拉取 `linuxserver/couchpotato` 应该就可以自动获取适合你系统架构的版本，当然你也可以通过 tag 获取特定的版本。
+直接拉取 `linuxserver/davos` 应该就可以自动获取适合你系统架构的版本，当然你也可以通过 tag 获取特定的版本。
 
 | 架构   | Tag            |
 | ------ | -------------- |
@@ -32,7 +32,7 @@ Docker Hub → https://hub.docker.com/r/linuxserver/couchpotato
 ## 拉取镜像
 
 ```shell
-docker pull linuxserver/couchpotato
+docker pull linuxserver/davos
 ```
 
 ------
@@ -49,20 +49,17 @@ docker pull linuxserver/couchpotato
 ---
 version: "2.1"
 services:
-  couchpotato:
-    image: linuxserver/couchpotato
-    container_name: couchpotato
+  davos:
+    image: linuxserver/davos
+    container_name: davos
     environment:
       - PUID=1000
       - PGID=1000
-      - TZ=Europe/London
-      - UMASK_SET=022
     volumes:
-      - /path/to/appdata/config:/config
-      - /path/to/downloads:/downloads
-      - /path/to/movies:/movies
+      - <path to data>:/config
+      - <path to downloads folder>:/download
     ports:
-      - 5050:5050
+      - 8080:8080
     restart: unless-stopped
 ```
 
@@ -70,17 +67,14 @@ services:
 
 ```shell
 docker run -d \
-  --name=couchpotato \
+  --name=davos \
   -e PUID=1000 \
   -e PGID=1000 \
-  -e TZ=Europe/London \
-  -e UMASK_SET=022 \
-  -p 5050:5050 \
-  -v /path/to/appdata/config:/config \
-  -v /path/to/downloads:/downloads \
-  -v /path/to/movies:/movies \
+  -p 8080:8080 \
+  -v <path to data>:/config \
+  -v <path to downloads folder>:/download \
   --restart unless-stopped \
-  linuxserver/couchpotato
+  linuxserver/davos
 ```
 
 ## 参数
@@ -89,9 +83,9 @@ Docker镜像在使用的时候需要配置一些参数，这些参数使用 `:` 
 
 ### 端口（`-p`）
 
-| port   | 说明    |
-| ------ | ------- |
-| `5050` | WEB界面 |
+| port   | 说明     |
+| ------ | -------- |
+| `8080` | 默认端口 |
 
 ### 环境变量（`-e`）
 
@@ -100,15 +94,13 @@ Docker镜像在使用的时候需要配置一些参数，这些参数使用 `:` 
 | `PUID=1000`        | 用户的 UID，详见下面的说明                 |
 | `PGID=1000`        | 用户的 GID，详见下面的说明                 |
 | `TZ=Europe/London` | 设置时区，在国内的话可以使用 Asia/Shanghai |
-| `UMASK_SET=022`    | 默认的是022，设置文件的umask               |
 
 ### 卷映射（`-v`）
 
-| volume       | 说明             |
-| ------------ | ---------------- |
-| `/config`    | 配置文件所在路径 |
-| `/downloads` | 下载文件夹       |
-| `/movies`    | 电影分享文件夹   |
+| volume      | 说明              |
+| ----------- | ----------------- |
+| `/config`   | 配置文件所在路径  |
+| `/download` | davos的下载文件夹 |
 
 ------
 
@@ -153,45 +145,27 @@ Docker镜像在使用的时候需要配置一些参数，这些参数使用 `:` 
 
 ## 安装说明
 
-访问WEB界面：`http://ip:5050` 
-
-更多信息，请查看官网 → https://couchpota.to/
+除了启动容器，不需要进行其他设置，可以在 [官方文档](https://github.com/linuxserver/davos) 中了解更多信息。
 
 ------
 
 ## 支持
 
 - 进入容器：
-  - `docker exec -it couchpotato /bin/bash`
+  - `docker exec -it davos /bin/bash`
 - 查看容器日志：
-  - `docker logs -f couchpotato`
+  - `docker logs -f davos`
 - 查看容器版本号：
-  - `docker inspect -f '{% raw %}{{% endraw %}{ index .Config.Labels "build_version" }}' couchpotato`
+  - `docker inspect -f '{% raw %}{{% endraw %}{ index .Config.Labels "build_version" }}' davos`
 - 查看镜像版本号：
-  - `docker inspect -f '{% raw %}{{% endraw %}{ index .Config.Labels "build_version" }}' linuxserver/couchpotato`
+  - `docker inspect -f '{% raw %}{{% endraw %}{ index .Config.Labels "build_version" }}' linuxserver/davos`
 
 ------
 
 ## 翻译之外
 
-首次启动会进行一些设置，主要是设置用户名、密码并选择下载器和搜索的网站，也提示有插件可以使用，插件的功能就是浏览类似于 IMDB 这种网站时，对某个电影感兴趣，可以直接加入清单中。
+整体来说web界面还算简洁，先添加主机，然后添加任务即可。
 
-设置完成后，要重启下容器才生效。
+等后续有关于FTP客户端的镜像时，再进行深度试用。
 
-在加入清单之前，会选择清晰度之类的东西，加入清单后就开始搜索。
-
-可能对中文资源支持不是很好，因为目前我还没安装支持的下载器，等后续安装了后再继续试用一下。
-
-![image-20201025161023998](https://pic.watercalmx.com/pic/image-20201025161023998.png)
-
-![image-20201025161137280](https://pic.watercalmx.com/pic/image-20201025161137280.png)
-
-![image-20201025161201560](https://pic.watercalmx.com/pic/image-20201025161201560.png)
-
-![image-20201025161227195](https://pic.watercalmx.com/pic/image-20201025161227195.png)
-
-![image-20201025161627105](https://pic.watercalmx.com/pic/image-20201025161627105.png)
-
-![image-20201025161826467](https://pic.watercalmx.com/pic/image-20201025161826467.png)
-
-![image-20201025162005657](https://pic.watercalmx.com/pic/image-20201025162005657.png)
+![image-20201026111229223](https://pic.watercalmx.com/pic/image-20201026111229223.png)

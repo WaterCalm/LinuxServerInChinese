@@ -36,4 +36,7 @@
     * [linuxserver/cops](images/docker-cops.md)
     * [linuxserver/couchpotato](images/docker-couchpotato.md)
     * [linuxserver/daapd](images/docker-daapd.md)
+    * [linuxserver/davos](images/docker-davos.md)
+    * [linuxserver/ddclient](images/docker-ddclient.md)
+    * [linuxserver/deluge](images/docker-deluge.md)
 
