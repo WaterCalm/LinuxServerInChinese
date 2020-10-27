@@ -39,4 +39,7 @@
     * [linuxserver/davos](images/docker-davos.md)
     * [linuxserver/ddclient](images/docker-ddclient.md)
     * [linuxserver/deluge](images/docker-deluge.md)
+    * [linuxserver/digikam](images/docker-digikam.md)
+    * [linuxserver/dillinger](images/docker-dillinger.md)
+    * [linuxserver/diskover](images/docker-diskover.md)
 
