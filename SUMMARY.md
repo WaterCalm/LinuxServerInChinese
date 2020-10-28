@@ -42,4 +42,7 @@
     * [linuxserver/digikam](images/docker-digikam.md)
     * [linuxserver/dillinger](images/docker-dillinger.md)
     * [linuxserver/diskover](images/docker-diskover.md)
+    * [linuxserver/docker-compose](images/docker-docker-compose.md)
+    * [linuxserver/dokuwiki](images/docker-dokuwiki.md)
+    * [linuxserver/domoticz](images/docker-domoticz.md)
 
