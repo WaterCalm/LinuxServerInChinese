@@ -45,4 +45,7 @@
     * [linuxserver/docker-compose](images/docker-docker-compose.md)
     * [linuxserver/dokuwiki](images/docker-dokuwiki.md)
     * [linuxserver/domoticz](images/docker-domoticz.md)
+    * [linuxserver/doublecommander](images/docker-doublecommander.md)
+    * [linuxserver/duckdns](images/docker-duckdns.md)
+    * [linuxserver/duplicati](images/docker-duplicati.md)
 
