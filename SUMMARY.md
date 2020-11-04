@@ -48,4 +48,7 @@
     * [linuxserver/doublecommander](images/docker-doublecommander.md)
     * [linuxserver/duckdns](images/docker-duckdns.md)
     * [linuxserver/duplicati](images/docker-duplicati.md)
+    * [linuxserver/emby](images/docker-emby.md)
+    * [linuxserver/embystat](images/docker-embystat.md)
+    * [linuxserver/ffmpeg](images/docker-ffmpeg.md)
 

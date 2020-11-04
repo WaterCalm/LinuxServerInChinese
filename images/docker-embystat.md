@@ -1,16 +1,16 @@
-# linuxserver/duplicati
+# linuxserver/embystat
 
 > [!TIP]
 >
 > 前半部分是翻译官方的文档，最后一部分是我的简单试用（个别软件会深度试用），如果对Docker已经有一定的了解了，可以直接跳转到最后面 [翻译之外](#翻译之外) 这部分来查看。
 
-Duplicati → https://www.duplicati.com/
+Embystat → https://github.com/mregni/EmbyStat
 
-GitHub → https://github.com/linuxserver/docker-duplicati
+GitHub → https://github.com/linuxserver/docker-embystat
 
-Docker Hub → https://hub.docker.com/r/linuxserver/duplicati
+Docker Hub → https://hub.docker.com/r/linuxserver/embystat
 
-[Duplicati](https://www.duplicati.com/) 可以作为如 FTP、SSH、WebDAV等标准协议的客户端，也支持如微软的OneDrive、Amazon Cloud Drive & S3、Google Drive、box.com、Mega、hubiC和其他服务。
+[Embystat](https://github.com/mregni/EmbyStat) 是一个个人Web服务器，它可以统计本地Emby服务器的各种信息。只需要安装在服务器上，它会自行机选各种有趣的数据。
 
 ------
 
@@ -18,7 +18,7 @@ Docker Hub → https://hub.docker.com/r/linuxserver/duplicati
 
 得益于docker的跨平台属性，我们的镜像也支持多架构（如，x86-64、arm64、armhf）。
 
-直接拉取 `linuxserver/duplicati` 应该就可以自动获取适合你系统架构的版本，当然你也可以通过 tag 获取特定的版本。
+直接拉取 `ghcr.io/linuxserver/embystat` 应该就可以自动获取适合你系统架构的版本，当然你也可以通过 tag 获取特定的版本。
 
 | 架构   | Tag            |
 | ------ | -------------- |
@@ -26,20 +26,12 @@ Docker Hub → https://hub.docker.com/r/linuxserver/duplicati
 | arm64  | arm64v8-latest |
 | armhf  | arm32v7-latest |
 
-### 版本标签
-
-| Tag         | 说明                    |
-| ----------- | ----------------------- |
-| latest      | Duplicati的Beta发行版   |
-| development | Duplicati的Canary发行版 |
-
-
 ------
 
 ## 拉取镜像
 
 ```shell
-docker pull linuxserver/duplicati
+docker pull ghcr.io/linuxserver/embystat
 ```
 
 ------
@@ -56,20 +48,17 @@ docker pull linuxserver/duplicati
 ---
 version: "2.1"
 services:
-  duplicati:
-    image: linuxserver/duplicati
-    container_name: duplicati
+  embystat:
+    image: ghcr.io/linuxserver/embystat
+    container_name: embystat
     environment:
       - PUID=1000
       - PGID=1000
       - TZ=Europe/London
-      - CLI_ARGS= #optional
     volumes:
-      - </path/to/appdata/config>:/config
-      - </path/to/backups>:/backups
-      - </path/to/source>:/source
+      - /path/to/appdata/config:/config
     ports:
-      - 8200:8200
+      - 6555:6555
     restart: unless-stopped
 ```
 
@@ -77,17 +66,14 @@ services:
 
 ```shell
 docker run -d \
-  --name=duplicati \
+  --name=embystat \
   -e PUID=1000 \
   -e PGID=1000 \
   -e TZ=Europe/London \
-  -e CLI_ARGS= `#optional` \
-  -p 8200:8200 \
-  -v </path/to/appdata/config>:/config \
-  -v </path/to/backups>:/backups \
-  -v </path/to/source>:/source \
+  -p 6555:6555 \
+  -v /path/to/appdata/config:/config \
   --restart unless-stopped \
-  linuxserver/duplicati
+  ghcr.io/linuxserver/embystat
 ```
 
 ## 参数
@@ -98,7 +84,7 @@ Docker镜像在使用的时候需要配置一些参数，这些参数使用 `:` 
 
 | port   | 说明    |
 | ------ | ------- |
-| `8200` | Web界面 |
+| `6555` | Web界面 |
 
 ### 环境变量（`-e`）
 
@@ -107,16 +93,22 @@ Docker镜像在使用的时候需要配置一些参数，这些参数使用 `:` 
 | `PUID=1000`        | 用户的 UID，详见下面的说明                 |
 | `PGID=1000`        | 用户的 GID，详见下面的说明                 |
 | `TZ=Europe/London` | 设置时区，在国内的话可以使用 Asia/Shanghai |
-| `CLI_ARGS=`        | （可选）指定要用于启动程序的CLI参数        |
 
 ### 卷映射（`-v`）
 
-| volume     | 说明               |
-| ---------- | ------------------ |
-| `/config`  | 配置文件所在路径   |
-| `/backups` | 存储本地备份的路径 |
-| `/source`  | 存储源备份的路径   |
+| volume    | 说明             |
+| --------- | ---------------- |
+| `/config` | 配置文件所在路径 |
 
+### 设备映射（`--device`）
+
+| 参数           | 说明                                                |
+| -------------- | --------------------------------------------------- |
+| `/dev/dri`     | 如果要使用Intel或AMD GPU硬件加速转码（vaapi）时设置 |
+| `/dev/vchiq`   | 如果要使用Raspberry Pi OpenMax 转码时设置           |
+| `/dev/video10` | 如果要使用Raspberry Pi V4L2 转码时设置              |
+| `/dev/video11` | 如果要使用Raspberry Pi V4L2 转码时设置              |
+| `/dev/video12` | 如果要使用Raspberry Pi V4L2 转码时设置              |
 
 
 ## 从文件加载环境变量
@@ -160,35 +152,31 @@ Docker镜像在使用的时候需要配置一些参数，这些参数使用 `:` 
 
 ## 安装说明
 
-访问 `http://ip:8200` 后，通过Web界面创建备份任务，对于本地备份，请选择 /backups 。查看 [官方文档](https://www.duplicati.com/) 获取更多信息。
+访问 `http://ip:6555` 进入Web管理页面
+
+按照提示进行初始化安装，然后配置需要的服务。
 
 ------
 
 ## 支持
 
 - 进入容器：
-  - `docker exec -it duplicati /bin/bash`
+  - `docker exec -it embystat /bin/bash`
 - 查看容器日志：
-  - `docker logs -f duplicati`
+  - `docker logs -f embystat`
 - 查看容器版本号：
-  - `docker inspect -f '{% raw %}{{% endraw %}{ index .Config.Labels "build_version" }}' duplicati`
+  - `docker inspect -f '{% raw %}{{% endraw %}{ index .Config.Labels "build_version" }}' embystat`
 - 查看镜像版本号：
-  - `docker inspect -f '{% raw %}{{% endraw %}{ index .Config.Labels "build_version" }}' linuxserver/duplicati`
+  - `docker inspect -f '{% raw %}{{% endraw %}{ index .Config.Labels "build_version" }}' linuxserver/embystat`
 
 ------
 
 ## 翻译之外
 
-简单来说这是一个备份工具，可以将本地的文件自动备份到其他目录或云端，大概看了支持FTP/WebDAV协议，还支持亚马逊、谷歌、微软的网盘。
+首次打开后按照提示设置即可，在自动搜索到emby服务器后，会指引你去emby服务器上获取一个api key，填写api key后就可以正常工作了。
 
-![image-20201104120900444](https://pic.watercalmx.com/pic/image-20201104120900444.png)
+说实话……暂时没找到感觉特别有用的地方……而且在设置的时候把语言设置为了简体中文，界面还是英文的……不知道是哪里出错了……
 
-![image-20201104121011711](https://pic.watercalmx.com/pic/image-20201104121011711.png)
+![image-20201104132205115](https://pic.watercalmx.com/pic/image-20201104132205115.png)
 
-![image-20201104121045544](https://pic.watercalmx.com/pic/image-20201104121045544.png)
-
-![image-20201104121118733](https://pic.watercalmx.com/pic/image-20201104121118733.png)
-
-![image-20201104121335583](https://pic.watercalmx.com/pic/image-20201104121335583.png)
-
-![image-20201104121437579](https://pic.watercalmx.com/pic/image-20201104121437579.png)
+![image-20201104132313105](https://pic.watercalmx.com/pic/image-20201104132313105.png)
