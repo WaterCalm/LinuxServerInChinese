@@ -51,4 +51,7 @@
     * [linuxserver/emby](images/docker-emby.md)
     * [linuxserver/embystat](images/docker-embystat.md)
     * [linuxserver/ffmpeg](images/docker-ffmpeg.md)
+    * [linuxserver/fleet](images/docker-fleet.md)
+    * [linuxserver/foldingathome](images/docker-foldingathome.md)
+    * [linuxserver/freshrss](images/docker-freshrss.md)
 
