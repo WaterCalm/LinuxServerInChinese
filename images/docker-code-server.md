@@ -25,7 +25,7 @@ Docker Hub → https://hub.docker.com/r/linuxserver/code-server
 
 得益于docker的跨平台属性，我们的镜像也支持多架构（如，x86-64、arm64、armhf）。
 
-直接拉取 `linuxserver/code-server` 应该就可以自动获取适合你系统架构的版本，当然你也可以通过 tag 获取特定的版本。
+直接拉取 `ghcr.io/linuxserver/code-server` 应该就可以自动获取适合你系统架构的版本，当然你也可以通过 tag 获取特定的版本。
 
 | 架构   | Tag            |
 | ------ | -------------- |
@@ -49,7 +49,7 @@ Docker Hub → https://hub.docker.com/r/linuxserver/code-server
 ## 拉取镜像
 
 ```shell
-docker pull linuxserver/code-server
+docker pull ghcr.io/linuxserver/code-server
 ```
 
 ------

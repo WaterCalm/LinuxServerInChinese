@@ -1,16 +1,22 @@
-# linuxserver/freshrss
+# linuxserver/habridge
 
 > [!TIP]
 >
 > 前半部分是翻译官方的文档，最后一部分是我的简单试用（个别软件会深度试用），如果对Docker已经有一定的了解了，可以直接跳转到最后面 [翻译之外](#翻译之外) 这部分来查看。
 
-Freshrss → https://freshrss.org/
+Habridge → http://bwssystems.com/#/habridge
 
-GitHub → https://github.com/linuxserver/docker-freshrss
+GitHub → https://github.com/linuxserver/docker-habridge
 
-Docker Hub → https://hub.docker.com/r/linuxserver/freshrss
+Docker Hub → https://hub.docker.com/r/linuxserver/habridge
 
-[Freshrss](https://freshrss.org/) 是一个用于RSS的免费、可托管的聚合器。
+[Habridge](http://bwssystems.com/#/habridge) 将Philips Hue API适配到其他家庭自动化网关，例如Amazon Echo / Dot Gen 1（Gen 2在发现ha-bridge时遇到问题）或其他支持Philips Hue的系统。桥接器处理色相协议的基本命令，例如“开”，“关”和“亮度”命令。该网桥可以控制大多数具有不同API的设备。
+
+对于需要授权或使用当前方法无法处理的API系统，可能需要构建一个模块。 Harmony Hub就是这样的一个模块，Nest模块也是如此。桥梁有帮助者为Logitech Harmony Hub，Vera，Vera Lite或Vera Edge，Nest，Somfy Tahoma，家庭助理，Domoticz，MQTT，HAL，Fibaro，HomeWizard，LIFX，OpenHAB，FHEM，Broadlink和能够代理您在此桥接后面的所有真实Hue bridges。
+
+该桥接旨在帮助将物联网整合在一起。
+
+查看官方wiki了解更多：https://github.com/bwssytems/ha-bridge/wiki
 
 ------
 
@@ -18,7 +24,7 @@ Docker Hub → https://hub.docker.com/r/linuxserver/freshrss
 
 得益于docker的跨平台属性，我们的镜像也支持多架构（如，x86-64、arm64、armhf）。
 
-直接拉取 `ghcr.io/linuxserver/freshrss` 应该就可以自动获取适合你系统架构的版本，当然你也可以通过 tag 获取特定的版本。
+直接拉取 `ghcr.io/linuxserver/habridge` 应该就可以自动获取适合你系统架构的版本，当然你也可以通过 tag 获取特定的版本。
 
 | 架构   | Tag            |
 | ------ | -------------- |
@@ -31,7 +37,7 @@ Docker Hub → https://hub.docker.com/r/linuxserver/freshrss
 ## 拉取镜像
 
 ```shell
-docker pull ghcr.io/linuxserver/freshrss
+docker pull ghcr.io/linuxserver/habridge
 ```
 
 ------
@@ -48,17 +54,19 @@ docker pull ghcr.io/linuxserver/freshrss
 ---
 version: "2.1"
 services:
-  freshrss:
-    image: ghcr.io/linuxserver/freshrss
-    container_name: freshrss
+  habridge:
+    image: ghcr.io/linuxserver/habridge
+    container_name: habridge
     environment:
       - PUID=1000
       - PGID=1000
+      - SEC_KEY=<Your Key To Encrypt Security Data>
       - TZ=Europe/London
     volumes:
-      - /path/to/data:/config
+      - <path to data>:/config
     ports:
-      - 80:80
+      - 8080:8080
+      - 50000:50000
     restart: unless-stopped
 ```
 
@@ -66,14 +74,16 @@ services:
 
 ```shell
 docker run -d \
-  --name=freshrss \
+  --name=habridge \
   -e PUID=1000 \
   -e PGID=1000 \
+  -e SEC_KEY=<Your Key To Encrypt Security Data> \
   -e TZ=Europe/London \
-  -p 80:80 \
-  -v /path/to/data:/config \
+  -p 8080:8080 \
+  -p 50000:50000 \
+  -v <path to data>:/config \
   --restart unless-stopped \
-  ghcr.io/linuxserver/freshrss
+  ghcr.io/linuxserver/habridge
 ```
 
 ## 参数
@@ -82,17 +92,19 @@ Docker镜像在使用的时候需要配置一些参数，这些参数使用 `:` 
 
 ### 端口（`-p`）
 
-| port | 说明    |
-| ---- | ------- |
-| `80` | Web界面 |
+| port    | 说明             |
+| ------- | ---------------- |
+| `8080`  | Web界面          |
+| `50000` | HABridge通讯端口 |
 
 ### 环境变量（`-e`）
 
-| env                | 说明                                       |
-| ------------------ | ------------------------------------------ |
-| `PUID=1000`        | 用户的 UID，详见下面的说明                 |
-| `PGID=1000`        | 用户的 GID，详见下面的说明                 |
-| `TZ=Europe/London` | 设置时区，在国内的话可以使用 Asia/Shanghai |
+| env                                           | 说明                                       |
+| --------------------------------------------- | ------------------------------------------ |
+| `PUID=1000`                                   | 用户的 UID，详见下面的说明                 |
+| `PGID=1000`                                   | 用户的 GID，详见下面的说明                 |
+| `TZ=Europe/London`                            | 设置时区，在国内的话可以使用 Asia/Shanghai |
+| `SEC_KEY=<Your Key To Encrypt Security Data>` | 用于加密通讯的关键字                       |
 
 ### 卷映射（`-v`）
 
@@ -144,24 +156,22 @@ Docker镜像在使用的时候需要配置一些参数，这些参数使用 `:` 
 
 ## 安装说明
 
-访问 `http://ip:80` 进入首页
+访问 `http://ip:8080` 即可使用 ha-bridge。进入webui后，您可以根据自己的喜好添加设备并配置ha-bridge。
 
-对于外部数据库，请在mysql / mariadb服务器（不是root）中创建用户和数据库，然后按照webui中的安装向导进行操作。使用IP地址作为数据库服务器的“host”。
-
-扩展插件可以放在 `/config/www/freshrss/extensions` 文件夹下，并重启容器以激活插件。
+ 关于配置 ha-bridge 的具体信息，请查看官方wiki：https://github.com/bwssytems/ha-bridge/wiki
 
 ------
 
 ## 支持
 
 - 进入容器：
-  - `docker exec -it freshrss /bin/bash`
+  - `docker exec -it habridge /bin/bash`
 - 查看容器日志：
-  - `docker logs -f freshrss`
+  - `docker logs -f habridge`
 - 查看容器版本号：
-  - `docker inspect -f '{% raw %}{{% endraw %}{ index .Config.Labels "build_version" }}' freshrss`
+  - `docker inspect -f '{% raw %}{{% endraw %}{ index .Config.Labels "build_version" }}' habridge`
 - 查看镜像版本号：
-  - `docker inspect -f '{% raw %}{{% endraw %}{ index .Config.Labels "build_version" }}' linuxserver/freshrss`
+  - `docker inspect -f '{% raw %}{{% endraw %}{ index .Config.Labels "build_version" }}' linuxserver/habridge`
 
 ------
 

@@ -1,16 +1,20 @@
-# linuxserver/freshrss
+# linuxserver/grocy
 
 > [!TIP]
 >
 > 前半部分是翻译官方的文档，最后一部分是我的简单试用（个别软件会深度试用），如果对Docker已经有一定的了解了，可以直接跳转到最后面 [翻译之外](#翻译之外) 这部分来查看。
 
-Freshrss → https://freshrss.org/
+Grocy → https://github.com/grocy/grocy
 
-GitHub → https://github.com/linuxserver/docker-freshrss
+GitHub → https://github.com/linuxserver/docker-grocy
 
-Docker Hub → https://hub.docker.com/r/linuxserver/freshrss
+Docker Hub → https://hub.docker.com/r/linuxserver/grocy
 
-[Freshrss](https://freshrss.org/) 是一个用于RSS的免费、可托管的聚合器。
+[Grocy](https://github.com/grocy/grocy) 是一个厨房ERP系统（资源管理），减少食物浪费并用这个出色的工具管理家务。
+
+借助这款出色的开源工具，可以跟踪购买情况、浪费了多少食物、需要做什么杂务以及需要为哪些电池充电。
+
+更多的信息可以访问 grocy 的网站来获取 → https://grocy.info/
 
 ------
 
@@ -18,7 +22,7 @@ Docker Hub → https://hub.docker.com/r/linuxserver/freshrss
 
 得益于docker的跨平台属性，我们的镜像也支持多架构（如，x86-64、arm64、armhf）。
 
-直接拉取 `ghcr.io/linuxserver/freshrss` 应该就可以自动获取适合你系统架构的版本，当然你也可以通过 tag 获取特定的版本。
+直接拉取 `ghcr.io/linuxserver/grocy` 应该就可以自动获取适合你系统架构的版本，当然你也可以通过 tag 获取特定的版本。
 
 | 架构   | Tag            |
 | ------ | -------------- |
@@ -31,7 +35,7 @@ Docker Hub → https://hub.docker.com/r/linuxserver/freshrss
 ## 拉取镜像
 
 ```shell
-docker pull ghcr.io/linuxserver/freshrss
+docker pull ghcr.io/linuxserver/grocy
 ```
 
 ------
@@ -48,17 +52,17 @@ docker pull ghcr.io/linuxserver/freshrss
 ---
 version: "2.1"
 services:
-  freshrss:
-    image: ghcr.io/linuxserver/freshrss
-    container_name: freshrss
+  grocy:
+    image: ghcr.io/linuxserver/grocy
+    container_name: grocy
     environment:
       - PUID=1000
       - PGID=1000
-      - TZ=Europe/London
+      - TZ=<your timezone, eg Europe/London>
     volumes:
-      - /path/to/data:/config
+      - <path to data>:/config
     ports:
-      - 80:80
+      - 9283:80
     restart: unless-stopped
 ```
 
@@ -66,14 +70,14 @@ services:
 
 ```shell
 docker run -d \
-  --name=freshrss \
+  --name=grocy \
   -e PUID=1000 \
   -e PGID=1000 \
-  -e TZ=Europe/London \
-  -p 80:80 \
-  -v /path/to/data:/config \
+  -e TZ=<your timezone, eg Europe/London> \
+  -p 9283:80 \
+  -v <path to data>:/config \
   --restart unless-stopped \
-  ghcr.io/linuxserver/freshrss
+  ghcr.io/linuxserver/grocy
 ```
 
 ## 参数
@@ -144,24 +148,20 @@ Docker镜像在使用的时候需要配置一些参数，这些参数使用 `:` 
 
 ## 安装说明
 
-访问 `http://ip:80` 进入首页
-
-对于外部数据库，请在mysql / mariadb服务器（不是root）中创建用户和数据库，然后按照webui中的安装向导进行操作。使用IP地址作为数据库服务器的“host”。
-
-扩展插件可以放在 `/config/www/freshrss/extensions` 文件夹下，并重启容器以激活插件。
+运行 Grocy 很简单，使用上面介绍中的方式启动容器后，你就可以通过访问 `http://ip:9283` 来使用它，使用 admin/admin 作为默认的用户名和密码来登陆。
 
 ------
 
 ## 支持
 
 - 进入容器：
-  - `docker exec -it freshrss /bin/bash`
+  - `docker exec -it grocy /bin/bash`
 - 查看容器日志：
-  - `docker logs -f freshrss`
+  - `docker logs -f grocy`
 - 查看容器版本号：
-  - `docker inspect -f '{% raw %}{{% endraw %}{ index .Config.Labels "build_version" }}' freshrss`
+  - `docker inspect -f '{% raw %}{{% endraw %}{ index .Config.Labels "build_version" }}' grocy`
 - 查看镜像版本号：
-  - `docker inspect -f '{% raw %}{{% endraw %}{ index .Config.Labels "build_version" }}' linuxserver/freshrss`
+  - `docker inspect -f '{% raw %}{{% endraw %}{ index .Config.Labels "build_version" }}' linuxserver/grocy`
 
 ------
 

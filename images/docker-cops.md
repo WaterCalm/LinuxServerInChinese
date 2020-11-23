@@ -47,7 +47,7 @@ Calibre库中的变化会立即更新到COPS页面上。
 
 得益于docker的跨平台属性，我们的镜像也支持多架构（如，x86-64、arm64、armhf）。
 
-直接拉取 `linuxserver/cops` 应该就可以自动获取适合你系统架构的版本，当然你也可以通过 tag 获取特定的版本。
+直接拉取 `ghcr.io/linuxserver/cops` 应该就可以自动获取适合你系统架构的版本，当然你也可以通过 tag 获取特定的版本。
 
 | 架构   | Tag            |
 | ------ | -------------- |
@@ -61,7 +61,7 @@ Calibre库中的变化会立即更新到COPS页面上。
 ## 拉取镜像
 
 ```shell
-docker pull linuxserver/cops
+docker pull ghcr.io/linuxserver/cops
 ```
 
 ------

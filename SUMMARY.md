@@ -54,4 +54,8 @@
     * [linuxserver/fleet](images/docker-fleet.md)
     * [linuxserver/foldingathome](images/docker-foldingathome.md)
     * [linuxserver/freshrss](images/docker-freshrss.md)
+    * [linuxserver/gazee](images/docker-gazee.md)
+    * [linuxserver/grocy](images/docker-grocy.md)
+    * [linuxserver/guacd](images/docker-guacd.md)
+    * [linuxserver/habridge](images/docker-habridge.md)
 

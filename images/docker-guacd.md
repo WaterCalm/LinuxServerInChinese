@@ -1,16 +1,16 @@
-# linuxserver/freshrss
+# linuxserver/guacd
 
 > [!TIP]
 >
 > 前半部分是翻译官方的文档，最后一部分是我的简单试用（个别软件会深度试用），如果对Docker已经有一定的了解了，可以直接跳转到最后面 [翻译之外](#翻译之外) 这部分来查看。
 
-Freshrss → https://freshrss.org/
+Guacd → https://guacamole.apache.org/
 
-GitHub → https://github.com/linuxserver/docker-freshrss
+GitHub → https://github.com/linuxserver/docker-guacd
 
-Docker Hub → https://hub.docker.com/r/linuxserver/freshrss
+Docker Hub → https://hub.docker.com/r/linuxserver/guacd
 
-[Freshrss](https://freshrss.org/) 是一个用于RSS的免费、可托管的聚合器。
+[Guacd](https://guacamole.apache.org/) - Apache Guacamole是无客户端远程桌面网关。它支持如VNC、RDP和SSH等标准协议。该容器只是使用正式或第三方HTML5前端所需的后端服务器组建。
 
 ------
 
@@ -18,7 +18,7 @@ Docker Hub → https://hub.docker.com/r/linuxserver/freshrss
 
 得益于docker的跨平台属性，我们的镜像也支持多架构（如，x86-64、arm64、armhf）。
 
-直接拉取 `ghcr.io/linuxserver/freshrss` 应该就可以自动获取适合你系统架构的版本，当然你也可以通过 tag 获取特定的版本。
+直接拉取 `ghcr.io/linuxserver/guacd` 应该就可以自动获取适合你系统架构的版本，当然你也可以通过 tag 获取特定的版本。
 
 | 架构   | Tag            |
 | ------ | -------------- |
@@ -31,7 +31,7 @@ Docker Hub → https://hub.docker.com/r/linuxserver/freshrss
 ## 拉取镜像
 
 ```shell
-docker pull ghcr.io/linuxserver/freshrss
+docker pull ghcr.io/linuxserver/guacd
 ```
 
 ------
@@ -48,17 +48,11 @@ docker pull ghcr.io/linuxserver/freshrss
 ---
 version: "2.1"
 services:
-  freshrss:
-    image: ghcr.io/linuxserver/freshrss
-    container_name: freshrss
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Europe/London
-    volumes:
-      - /path/to/data:/config
+  guacd:
+    image: ghcr.io/linuxserver/guacd
+    container_name: guacd
     ports:
-      - 80:80
+      - 4822:4822
     restart: unless-stopped
 ```
 
@@ -66,14 +60,10 @@ services:
 
 ```shell
 docker run -d \
-  --name=freshrss \
-  -e PUID=1000 \
-  -e PGID=1000 \
-  -e TZ=Europe/London \
-  -p 80:80 \
-  -v /path/to/data:/config \
+  --name=guacd \
+  -p 4822:4822 \
   --restart unless-stopped \
-  ghcr.io/linuxserver/freshrss
+  ghcr.io/linuxserver/guacd
 ```
 
 ## 参数
@@ -82,23 +72,21 @@ Docker镜像在使用的时候需要配置一些参数，这些参数使用 `:` 
 
 ### 端口（`-p`）
 
-| port | 说明    |
-| ---- | ------- |
-| `80` | Web界面 |
+| port   | 说明                 |
+| ------ | -------------------- |
+| `4822` | Guacamole 的监听端口 |
 
 ### 环境变量（`-e`）
 
-| env                | 说明                                       |
-| ------------------ | ------------------------------------------ |
-| `PUID=1000`        | 用户的 UID，详见下面的说明                 |
-| `PGID=1000`        | 用户的 GID，详见下面的说明                 |
-| `TZ=Europe/London` | 设置时区，在国内的话可以使用 Asia/Shanghai |
+| env  | 说明 |
+| ---- | ---- |
+| 无   | 无   |
 
 ### 卷映射（`-v`）
 
-| volume    | 说明             |
-| --------- | ---------------- |
-| `/config` | 配置文件所在路径 |
+| volume | 说明 |
+| ------ | ---- |
+| 无     | 无   |
 
 
 
@@ -144,24 +132,20 @@ Docker镜像在使用的时候需要配置一些参数，这些参数使用 `:` 
 
 ## 安装说明
 
-访问 `http://ip:80` 进入首页
-
-对于外部数据库，请在mysql / mariadb服务器（不是root）中创建用户和数据库，然后按照webui中的安装向导进行操作。使用IP地址作为数据库服务器的“host”。
-
-扩展插件可以放在 `/config/www/freshrss/extensions` 文件夹下，并重启容器以激活插件。
+这是仅后端的服务，要利用 Guacd 服务器，您需要使用官方 Java 前端 guacamole-client 或开源替代品（例如guacamole-lite）
 
 ------
 
 ## 支持
 
 - 进入容器：
-  - `docker exec -it freshrss /bin/bash`
+  - `docker exec -it guacd /bin/bash`
 - 查看容器日志：
-  - `docker logs -f freshrss`
+  - `docker logs -f guacd`
 - 查看容器版本号：
-  - `docker inspect -f '{% raw %}{{% endraw %}{ index .Config.Labels "build_version" }}' freshrss`
+  - `docker inspect -f '{% raw %}{{% endraw %}{ index .Config.Labels "build_version" }}' guacd`
 - 查看镜像版本号：
-  - `docker inspect -f '{% raw %}{{% endraw %}{ index .Config.Labels "build_version" }}' linuxserver/freshrss`
+  - `docker inspect -f '{% raw %}{{% endraw %}{ index .Config.Labels "build_version" }}' linuxserver/guacd`
 
 ------
 
