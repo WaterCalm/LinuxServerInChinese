@@ -58,4 +58,7 @@
     * [linuxserver/grocy](images/docker-grocy.md)
     * [linuxserver/guacd](images/docker-guacd.md)
     * [linuxserver/habridge](images/docker-habridge.md)
+    * [linuxserver/headphones](images/docker-headphones.md)
+    * [linuxserver/healthchecks](images/docker-healthchecks.md)
+    * [linuxserver/heimdall](images/docker-heimdall.md)
 
