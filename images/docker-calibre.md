@@ -183,7 +183,7 @@ printf '%s' password | md5sum
 - 查看容器版本号：
   - `docker inspect -f '{% raw %}{{% endraw %}{ index .Config.Labels "build_version" }}' calibre`
 - 查看镜像版本号：
-  - `docker inspect -f '{% raw %}{{% endraw %}{ index .Config.Labels "build_version" }}' linuxserver/calibre`
+  - `docker inspect -f '{% raw %}{{% endraw %}{ index .Config.Labels "build_version" }}' ghcr.io/linuxserver/calibre`
 
 ------
 

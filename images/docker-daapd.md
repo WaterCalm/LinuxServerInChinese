@@ -168,7 +168,7 @@ Web界面是 http://ip:3689
 - 查看容器版本号：
   - `docker inspect -f '{% raw %}{{% endraw %}{ index .Config.Labels "build_version" }}' daapd`
 - 查看镜像版本号：
-  - `docker inspect -f '{% raw %}{{% endraw %}{ index .Config.Labels "build_version" }}' linuxserver/daapd`
+  - `docker inspect -f '{% raw %}{{% endraw %}{ index .Config.Labels "build_version" }}' ghcr.io/linuxserver/daapd`
 
 ------
 

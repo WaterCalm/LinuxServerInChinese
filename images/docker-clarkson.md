@@ -175,7 +175,7 @@ GRANT ALL ON `clarkson`.* TO 'clarkson_user';
 - 查看容器版本号：
   - `docker inspect -f '{% raw %}{{% endraw %}{ index .Config.Labels "build_version" }}' clarkson`
 - 查看镜像版本号：
-  - `docker inspect -f '{% raw %}{{% endraw %}{ index .Config.Labels "build_version" }}' linuxserver/clarkson`
+  - `docker inspect -f '{% raw %}{{% endraw %}{ index .Config.Labels "build_version" }}' ghcr.io/linuxserver/clarkson`
 
 ------
 

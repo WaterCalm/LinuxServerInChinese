@@ -1,16 +1,16 @@
-# linuxserver/couchpotato
+# linuxserver/ipfs
 
 > [!TIP]
 >
 > 前半部分是翻译官方的文档，最后一部分是我的简单试用（个别软件会深度试用），如果对Docker已经有一定的了解了，可以直接跳转到最后面 [翻译之外](#翻译之外) 这部分来查看。
 
-Couchpotato → https://couchpota.to/
+Ipfs → https://ipfs.io/
 
-GitHub → https://github.com/linuxserver/docker-couchpotato
+GitHub → https://github.com/linuxserver/docker-ipfs
 
-Docker Hub → https://hub.docker.com/r/linuxserver/couchpotato
+Docker Hub → https://hub.docker.com/r/linuxserver/ipfs
 
-[Couchpotato](https://couchpota.to/) 是一个 NZB 和 Torrent 自动下载器。你可以更新 `movies I want` 列表，它将每隔一段时间搜索一次 NZB/Torrent 服务器。如果找到对应的电影，它将发送到 SABnzbd 上或下载 torrent。
+[Ipfs](https://ipfs.io/) 是一个点对点的超媒体协议，其设置初衷是使网络访问更快速、安全、开放。
 
 ------
 
@@ -18,7 +18,7 @@ Docker Hub → https://hub.docker.com/r/linuxserver/couchpotato
 
 得益于docker的跨平台属性，我们的镜像也支持多架构（如，x86-64、arm64、armhf）。
 
-直接拉取 `ghcr.io/linuxserver/couchpotato` 应该就可以自动获取适合你系统架构的版本，当然你也可以通过 tag 获取特定的版本。
+直接拉取 `ghcr.io/linuxserver/ipfs` 应该就可以自动获取适合你系统架构的版本，当然你也可以通过 tag 获取特定的版本。
 
 | 架构   | Tag            |
 | ------ | -------------- |
@@ -27,12 +27,13 @@ Docker Hub → https://hub.docker.com/r/linuxserver/couchpotato
 | armhf  | arm32v7-latest |
 
 
+
 ------
 
 ## 拉取镜像
 
 ```shell
-docker pull ghcr.io/linuxserver/couchpotato
+docker pull ghcr.io/linuxserver/ipfs
 ```
 
 ------
@@ -41,7 +42,7 @@ docker pull ghcr.io/linuxserver/couchpotato
 
 以下是一些简单的示例。
 
-### docker-compose（[推荐](general/docker-compose.md)）
+### docker-compose
 
 兼容docker-compose v2
 
@@ -49,20 +50,21 @@ docker pull ghcr.io/linuxserver/couchpotato
 ---
 version: "2.1"
 services:
-  couchpotato:
-    image: linuxserver/couchpotato
-    container_name: couchpotato
+  ipfs:
+    image: ghcr.io/linuxserver/ipfs
+    container_name: ipfs
     environment:
       - PUID=1000
       - PGID=1000
       - TZ=Europe/London
-      - UMASK_SET=022
     volumes:
-      - /path/to/appdata/config:/config
-      - /path/to/downloads:/downloads
-      - /path/to/movies:/movies
+      - /path/to/data:/config
     ports:
-      - 5050:5050
+      - 80:80
+      - 4001:4001
+      - 5001:5001
+      - 8080:8080
+      - 443:443 #optional
     restart: unless-stopped
 ```
 
@@ -70,17 +72,18 @@ services:
 
 ```shell
 docker run -d \
-  --name=couchpotato \
+  --name=ipfs \
   -e PUID=1000 \
   -e PGID=1000 \
   -e TZ=Europe/London \
-  -e UMASK_SET=022 \
-  -p 5050:5050 \
-  -v /path/to/appdata/config:/config \
-  -v /path/to/downloads:/downloads \
-  -v /path/to/movies:/movies \
+  -p 80:80 \
+  -p 4001:4001 \
+  -p 5001:5001 \
+  -p 8080:8080 \
+  -p 443:443 `#optional` \
+  -v /path/to/data:/config \
   --restart unless-stopped \
-  linuxserver/couchpotato
+  ghcr.io/linuxserver/ipfs
 ```
 
 ## 参数
@@ -89,9 +92,13 @@ Docker镜像在使用的时候需要配置一些参数，这些参数使用 `:` 
 
 ### 端口（`-p`）
 
-| port   | 说明    |
-| ------ | ------- |
-| `5050` | WEB界面 |
+| port   | 说明                                                         |
+| ------ | ------------------------------------------------------------ |
+| `80`   | IPFS 的 HTTP 访问端口                                        |
+| `4001` | 点对点端口，这个是你应该开放到互联网上的唯一端口             |
+| `5001` | API端口，客户端的webUI需要能够从您的Web浏览器所在的任何计算机上与之进行通信 |
+| `8080` | 网关端口，实际提供IPFS内容                                   |
+| `443`  | IPFS 的 HTTPS 访问端口                                       |
 
 ### 环境变量（`-e`）
 
@@ -100,17 +107,15 @@ Docker镜像在使用的时候需要配置一些参数，这些参数使用 `:` 
 | `PUID=1000`        | 用户的 UID，详见下面的说明                 |
 | `PGID=1000`        | 用户的 GID，详见下面的说明                 |
 | `TZ=Europe/London` | 设置时区，在国内的话可以使用 Asia/Shanghai |
-| `UMASK_SET=022`    | 默认的是022，设置文件的umask               |
 
 ### 卷映射（`-v`）
 
-| volume       | 说明             |
-| ------------ | ---------------- |
-| `/config`    | 配置文件所在路径 |
-| `/downloads` | 下载文件夹       |
-| `/movies`    | 电影分享文件夹   |
+| volume    | 说明             |
+| --------- | ---------------- |
+| `/config` | 配置文件所在路径 |
 
-------
+
+
 
 ## 从文件加载环境变量
 
@@ -153,45 +158,33 @@ Docker镜像在使用的时候需要配置一些参数，这些参数使用 `:` 
 
 ## 安装说明
 
-访问WEB界面：`http://ip:5050` 
+为了将文件推送到本地网关之外，您必须确保端口4001已转发到互联网上。 IPFS对等方需要此权限才能进入并获取您的文件，以便公共网关可以为它们提供服务。
 
-更多信息，请查看官网 → https://couchpota.to/
+通过 `http:// localhost` 访问 webui，也可以使用API方式访问： `http://192.168.1.10:5001`，在这可以上传和管理推送到的文件IPFS。您访问IPFS文件的网关是 `http:// localhost:8080/ipfs/YOUR-FILE-HASH-HERE`。您也可以简单地使用公共IPFS网关，例如：
+
+- Cloudflare https://cloudflare-ipfs.com/ipfs/YOUR-FILE-HASH-HERE
+- IPFS.io https://ipfs.io/ipfs/YOUR-FILE-HASH-HERE
+- Eternum.io https://ipfs.eternum.io/ipfs/YOUR-FILE-HASH-HERE
+
+Cloudflare是一个可靠的选择，因为它们实际上在CDN上边缘缓存了文件，因此即使您固定该项目的节点关闭了一段时间，其缓存也将持续长达一个月的时间。
+
+有关使用IPFS的更多信息，请在此处阅读文档：https://docs.ipfs.io/
 
 ------
 
 ## 支持
 
 - 进入容器：
-  - `docker exec -it couchpotato /bin/bash`
+  - `docker exec -it ipfs /bin/bash`
 - 查看容器日志：
-  - `docker logs -f couchpotato`
+  - `docker logs -f ipfs`
 - 查看容器版本号：
-  - `docker inspect -f '{% raw %}{{% endraw %}{ index .Config.Labels "build_version" }}' couchpotato`
+  - `docker inspect -f '{% raw %}{{% endraw %}{ index .Config.Labels "build_version" }}' ipfs`
 - 查看镜像版本号：
-  - `docker inspect -f '{% raw %}{{% endraw %}{ index .Config.Labels "build_version" }}' ghcr.io/linuxserver/couchpotato`
+  - `docker inspect -f '{% raw %}{{% endraw %}{ index .Config.Labels "build_version" }}' ghcr.io/linuxserver/ipfs`
 
 ------
 
 ## 翻译之外
 
-首次启动会进行一些设置，主要是设置用户名、密码并选择下载器和搜索的网站，也提示有插件可以使用，插件的功能就是浏览类似于 IMDB 这种网站时，对某个电影感兴趣，可以直接加入清单中。
-
-设置完成后，要重启下容器才生效。
-
-在加入清单之前，会选择清晰度之类的东西，加入清单后就开始搜索。
-
-可能对中文资源支持不是很好，因为目前我还没安装支持的下载器，等后续安装了后再继续试用一下。
-
-![image-20201025161023998](https://pic.watercalmx.com/pic/image-20201025161023998.png)
-
-![image-20201025161137280](https://pic.watercalmx.com/pic/image-20201025161137280.png)
-
-![image-20201025161201560](https://pic.watercalmx.com/pic/image-20201025161201560.png)
-
-![image-20201025161227195](https://pic.watercalmx.com/pic/image-20201025161227195.png)
-
-![image-20201025161627105](https://pic.watercalmx.com/pic/image-20201025161627105.png)
-
-![image-20201025161826467](https://pic.watercalmx.com/pic/image-20201025161826467.png)
-
-![image-20201025162005657](https://pic.watercalmx.com/pic/image-20201025162005657.png)
+暂未试用

@@ -194,7 +194,7 @@ git config --global user.email "email address"
 - 查看容器版本号：
   - `docker inspect -f '{% raw %}{{% endraw %}{ index .Config.Labels "build_version" }}' code-server`
 - 查看镜像版本号：
-  - `docker inspect -f '{% raw %}{{% endraw %}{ index .Config.Labels "build_version" }}' linuxserver/code-server`
+  - `docker inspect -f '{% raw %}{{% endraw %}{ index .Config.Labels "build_version" }}' ghcr.io/linuxserver/code-server`
 
 ------
 

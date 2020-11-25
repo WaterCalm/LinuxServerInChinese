@@ -61,4 +61,7 @@
     * [linuxserver/headphones](images/docker-headphones.md)
     * [linuxserver/healthchecks](images/docker-healthchecks.md)
     * [linuxserver/heimdall](images/docker-heimdall.md)
+    * [linuxserver/htpcmanager](images/docker-htpcmanager.md)
+    * [linuxserver/hydra](images/docker-hydra.md)
+    * [linuxserver/ipfs](images/docker-ipfs.md)
 

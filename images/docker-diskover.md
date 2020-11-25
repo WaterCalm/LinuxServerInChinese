@@ -231,7 +231,7 @@ ElasticSearch还需要主机上的sysctl设置才能正常运行。使用 `sysct
 - 查看容器版本号：
   - `docker inspect -f '{% raw %}{{% endraw %}{ index .Config.Labels "build_version" }}' diskover`
 - 查看镜像版本号：
-  - `docker inspect -f '{% raw %}{{% endraw %}{ index .Config.Labels "build_version" }}' linuxserver/diskover`
+  - `docker inspect -f '{% raw %}{{% endraw %}{ index .Config.Labels "build_version" }}' ghcr.io/linuxserver/diskover`
 
 ------
 

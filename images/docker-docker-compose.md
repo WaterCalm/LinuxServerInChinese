@@ -81,7 +81,7 @@ sudo chmod +x /usr/local/bin/docker-compose
 ## 支持
 
 - 查看镜像版本号：
-  - `docker inspect -f '{% raw %}{{% endraw %}{ index .Config.Labels "build_version" }}' linuxserver/docker-compose`
+  - `docker inspect -f '{% raw %}{{% endraw %}{ index .Config.Labels "build_version" }}' ghcr.io/linuxserver/docker-compose`
 
 ### 更新
 
