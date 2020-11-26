@@ -64,4 +64,7 @@
     * [linuxserver/htpcmanager](images/docker-htpcmanager.md)
     * [linuxserver/hydra](images/docker-hydra.md)
     * [linuxserver/ipfs](images/docker-ipfs.md)
+    * [linuxserver/jackett](images/docker-jackett.md)
+    * [linuxserver/jellyfin](images/docker-jellyfin.md)
+    * [linuxserver/kanzi](images/docker-kanzi.md)
 
