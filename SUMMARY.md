@@ -67,4 +67,9 @@
     * [linuxserver/jackett](images/docker-jackett.md)
     * [linuxserver/jellyfin](images/docker-jellyfin.md)
     * [linuxserver/kanzi](images/docker-kanzi.md)
+    * [linuxserver/lazylibrarian](images/docker-lazylibrarian.md)
+    * [linuxserver/ldap-auth](images/docker-ldap-auth.md)
+    * [linuxserver/letsencrypt](images/docker-letsencrypt.md)
+    * [linuxserver/libresonic](images/docker-libresonic.md)
+    * [linuxserver/librespeed](images/docker-librespeed.md)
 
