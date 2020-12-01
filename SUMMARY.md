@@ -72,4 +72,7 @@
     * [linuxserver/letsencrypt](images/docker-letsencrypt.md)
     * [linuxserver/libresonic](images/docker-libresonic.md)
     * [linuxserver/librespeed](images/docker-librespeed.md)
+    * [linuxserver/lidarr](images/docker-lidarr.md)
+    * [linuxserver/limnoria](images/docker-limnoria.md)
+    * [linuxserver/lychee](images/docker-lychee.md)
 
