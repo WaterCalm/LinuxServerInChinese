@@ -75,4 +75,7 @@
     * [linuxserver/lidarr](images/docker-lidarr.md)
     * [linuxserver/limnoria](images/docker-limnoria.md)
     * [linuxserver/lychee](images/docker-lychee.md)
+    * [linuxserver/medusa](images/docker-medusa.md)
+    * [linuxserver/minetest](images/docker-minetest.md)
+    * [linuxserver/minisatip](images/docker-minisatip.md)
 
