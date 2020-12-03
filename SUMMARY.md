@@ -78,4 +78,7 @@
     * [linuxserver/medusa](images/docker-medusa.md)
     * [linuxserver/minetest](images/docker-minetest.md)
     * [linuxserver/minisatip](images/docker-minisatip.md)
+    * [linuxserver/mstream](images/docker-mstream.md)
+    * [linuxserver/musicbrainz](images/docker-musicbrainz.md)
+    * [linuxserver/muximux](images/docker-muximux.md)
 
