@@ -1,16 +1,16 @@
-# linuxserver/muximux
+# linuxserver/mysql-workbench
 
 > [!TIP]
 >
 > 前半部分是翻译官方的文档，最后一部分是我的简单试用（个别软件会深度试用），如果对Docker已经有一定的了解了，可以直接跳转到最后面 [翻译之外](#翻译之外) 这部分来查看。
 
-Muximux → https://github.com/mescon/Muximux
+MySQL Workbench → https://www.mysql.com/products/workbench/
 
-GitHub → https://github.com/linuxserver/docker-muximux
+GitHub → https://github.com/linuxserver/docker-mysql-workbench
 
-Docker Hub → https://hub.docker.com/r/linuxserver/muximux
+Docker Hub → https://hub.docker.com/r/linuxserver/mysql-workbench
 
-[Muximux](https://github.com/mescon/Muximux) 是一个轻量级的门户网站，用于查看和管理HTPC应用程序。只要有支持PHP的Web服务器便可以运行。使用Muximux，您无需保持多个选项卡打开，也无需将URL标记为所有应用程序。
+[MySQL Workbench](https://www.mysql.com/products/workbench/) 是面向数据库架构师、开发人员和DBA的统一可视工具。 MySQL Workbench提供了数据建模，SQL开发以及用于服务器配置，用户管理，备份等的综合管理工具。
 
 ------
 
@@ -18,13 +18,11 @@ Docker Hub → https://hub.docker.com/r/linuxserver/muximux
 
 得益于docker的跨平台属性，我们的镜像也支持多架构（如，x86-64、arm64、armhf）。
 
-直接拉取 `ghcr.io/linuxserver/muximux` 应该就可以自动获取适合你系统架构的版本，当然你也可以通过 tag 获取特定的版本。
+直接拉取 `ghcr.io/linuxserver/mysql-workbench` 应该就可以自动获取适合你系统架构的版本，当然你也可以通过 tag 获取特定的版本。
 
-| 架构   | Tag            |
-| ------ | -------------- |
-| x86-64 | amd64-latest   |
-| arm64  | arm64v8-latest |
-| armhf  | arm32v7-latest |
+| 架构   | Tag    |
+| ------ | ------ |
+| x86-64 | latest |
 
 
 
@@ -33,7 +31,7 @@ Docker Hub → https://hub.docker.com/r/linuxserver/muximux
 ## 拉取镜像
 
 ```shell
-docker pull ghcr.io/linuxserver/muximux
+docker pull ghcr.io/linuxserver/mysql-workbench
 ```
 
 ------
@@ -50,17 +48,19 @@ docker pull ghcr.io/linuxserver/muximux
 ---
 version: "2.1"
 services:
-  muximux:
-    image: ghcr.io/linuxserver/muximux
-    container_name: muximux
+  mysql-workbench:
+    image: ghcr.io/linuxserver/mysql-workbench
+    container_name: mysql-workbench
     environment:
       - PUID=1000
       - PGID=1000
       - TZ=Europe/London
     volumes:
-      - <path to data>:/config
+      - /path/to/config:/config
     ports:
-      - 80:80
+      - 3000:3000
+    cap_add:
+      - IPC_LOCK
     restart: unless-stopped
 ```
 
@@ -68,19 +68,18 @@ services:
 
 ```shell
 docker run -d \
-  --name=muximux \
+  --name=mysql-workbench \
   -e PUID=1000 \
   -e PGID=1000 \
   -e TZ=Europe/London \
-  -p 80:80 \
-  -v <path to data>:/config \
+  -p 3000:3000 \
+  -v /path/to/config:/config \
+  --cap-add="IPC_LOCK" \
   --restart unless-stopped \
-  ghcr.io/linuxserver/muximux
+  ghcr.io/linuxserver/mysql-workbench
 ```
 
-### 其他 runtime 参数
 
-在某些情况下，可能有必要使用其他参数来启动minisatip，例如，配置unicable LNB。添加所需的参数，然后重新启动容器。确保设置正确的参数，因为一次添加错误可能会导致容器无法正确启动。有关minisatip参数的列表，请访问[Minisatip](https://github.com/catalinii/minisatip)页面。
 
 ------
 
@@ -90,9 +89,9 @@ Docker镜像在使用的时候需要配置一些参数，这些参数使用 `:` 
 
 ### 端口（`-p`）
 
-| port | 说明          |
-| ---- | ------------- |
-| `80` | WebUI访问端口 |
+| port   | 说明         |
+| ------ | ------------ |
+| `3000` | 图形操作界面 |
 
 ### 环境变量（`-e`）
 
@@ -152,22 +151,24 @@ Docker镜像在使用的时候需要配置一些参数，这些参数使用 `:` 
 
 ## 安装说明
 
-WebUI：`http://ip:80`
+WebUI：`http://ip:3000/`
 
-通过 webui设置应用，更多信息请查阅：https://github.com/mescon/Muximux
+默认情况下，用户/密码为 abc/abc，如果您出于任何原因更改密码或希望手动登录GUI会话，请使用以下链接：
+
+`http://ip:3000/?login=true`
 
 ------
 
 ## 支持
 
 - 进入容器：
-  - `docker exec -it muximux /bin/bash`
+  - `docker exec -it mysql-workbench /bin/bash`
 - 查看容器日志：
-  - `docker logs -f muximux`
+  - `docker logs -f mysql-workbench`
 - 查看容器版本号：
-  - `docker inspect -f '{% raw %}{{% endraw %}{ index .Config.Labels "build_version" }}' muximux`
+  - `docker inspect -f '{% raw %}{{% endraw %}{ index .Config.Labels "build_version" }}' mysql-workbench`
 - 查看镜像版本号：
-  - `docker inspect -f '{% raw %}{{% endraw %}{ index .Config.Labels "build_version" }}' ghcr.io/linuxserver/muximux`
+  - `docker inspect -f '{% raw %}{{% endraw %}{ index .Config.Labels "build_version" }}' ghcr.io/linuxserver/mysql-workbench`
 
 ------
 

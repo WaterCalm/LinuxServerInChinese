@@ -1,16 +1,16 @@
-# linuxserver/muximux
+# linuxserver/mylar3
 
 > [!TIP]
 >
 > 前半部分是翻译官方的文档，最后一部分是我的简单试用（个别软件会深度试用），如果对Docker已经有一定的了解了，可以直接跳转到最后面 [翻译之外](#翻译之外) 这部分来查看。
 
-Muximux → https://github.com/mescon/Muximux
+Mylar3 → https://github.com/mylar3/mylar3
 
-GitHub → https://github.com/linuxserver/docker-muximux
+GitHub → https://github.com/linuxserver/docker-mylar3
 
-Docker Hub → https://hub.docker.com/r/linuxserver/muximux
+Docker Hub → https://hub.docker.com/r/linuxserver/mylar3
 
-[Muximux](https://github.com/mescon/Muximux) 是一个轻量级的门户网站，用于查看和管理HTPC应用程序。只要有支持PHP的Web服务器便可以运行。使用Muximux，您无需保持多个选项卡打开，也无需将URL标记为所有应用程序。
+[Mylar3](https://github.com/mylar3/mylar3) 是自动漫画下载器（cbr / cbz），可与 SABnzbd、NZBGet 和 torrent 一起使用。除了 DDL 外，它还支持 SABnzbd、NZBGET 和其他 torrent 客户端。
 
 ------
 
@@ -18,7 +18,7 @@ Docker Hub → https://hub.docker.com/r/linuxserver/muximux
 
 得益于docker的跨平台属性，我们的镜像也支持多架构（如，x86-64、arm64、armhf）。
 
-直接拉取 `ghcr.io/linuxserver/muximux` 应该就可以自动获取适合你系统架构的版本，当然你也可以通过 tag 获取特定的版本。
+直接拉取 `ghcr.io/linuxserver/mylar3` 应该就可以自动获取适合你系统架构的版本，当然你也可以通过 tag 获取特定的版本。
 
 | 架构   | Tag            |
 | ------ | -------------- |
@@ -33,7 +33,7 @@ Docker Hub → https://hub.docker.com/r/linuxserver/muximux
 ## 拉取镜像
 
 ```shell
-docker pull ghcr.io/linuxserver/muximux
+docker pull ghcr.io/linuxserver/mylar3
 ```
 
 ------
@@ -50,17 +50,18 @@ docker pull ghcr.io/linuxserver/muximux
 ---
 version: "2.1"
 services:
-  muximux:
-    image: ghcr.io/linuxserver/muximux
-    container_name: muximux
+  mylar3:
+    image: ghcr.io/linuxserver/mylar3
+    container_name: mylar3
     environment:
       - PUID=1000
       - PGID=1000
-      - TZ=Europe/London
     volumes:
-      - <path to data>:/config
+      - /path/to/data:/config
+      - /path/to/comics:/comics
+      - /path/to/downloads:/downloads
     ports:
-      - 80:80
+      - 8090:8090
     restart: unless-stopped
 ```
 
@@ -68,19 +69,18 @@ services:
 
 ```shell
 docker run -d \
-  --name=muximux \
+  --name=mylar3 \
   -e PUID=1000 \
   -e PGID=1000 \
-  -e TZ=Europe/London \
-  -p 80:80 \
-  -v <path to data>:/config \
+  -p 8090:8090 \
+  -v /path/to/data:/config \
+  -v /path/to/comics:/comics \
+  -v /path/to/downloads:/downloads \
   --restart unless-stopped \
-  ghcr.io/linuxserver/muximux
+  ghcr.io/linuxserver/mylar3
 ```
 
-### 其他 runtime 参数
 
-在某些情况下，可能有必要使用其他参数来启动minisatip，例如，配置unicable LNB。添加所需的参数，然后重新启动容器。确保设置正确的参数，因为一次添加错误可能会导致容器无法正确启动。有关minisatip参数的列表，请访问[Minisatip](https://github.com/catalinii/minisatip)页面。
 
 ------
 
@@ -90,9 +90,9 @@ Docker镜像在使用的时候需要配置一些参数，这些参数使用 `:` 
 
 ### 端口（`-p`）
 
-| port | 说明          |
-| ---- | ------------- |
-| `80` | WebUI访问端口 |
+| port   | 说明          |
+| ------ | ------------- |
+| `8090` | WebUI访问端口 |
 
 ### 环境变量（`-e`）
 
@@ -104,9 +104,11 @@ Docker镜像在使用的时候需要配置一些参数，这些参数使用 `:` 
 
 ### 卷映射（`-v`）
 
-| volume    | 说明             |
-| --------- | ---------------- |
-| `/config` | 配置文件所在路径 |
+| volume       | 说明             |
+| ------------ | ---------------- |
+| `/config`    | 配置文件所在路径 |
+| `/comics`    | 漫画文件夹       |
+| `/downloads` | 下载文件夹       |
 
 
 
@@ -152,22 +154,22 @@ Docker镜像在使用的时候需要配置一些参数，这些参数使用 `:` 
 
 ## 安装说明
 
-WebUI：`http://ip:80`
+WebUI：`http://ip:8090`
 
-通过 webui设置应用，更多信息请查阅：https://github.com/mescon/Muximux
+通过 webui设置应用，更多信息请查阅：https://github.com/mylar3/mylar3
 
 ------
 
 ## 支持
 
 - 进入容器：
-  - `docker exec -it muximux /bin/bash`
+  - `docker exec -it mylar3 /bin/bash`
 - 查看容器日志：
-  - `docker logs -f muximux`
+  - `docker logs -f mylar3`
 - 查看容器版本号：
-  - `docker inspect -f '{% raw %}{{% endraw %}{ index .Config.Labels "build_version" }}' muximux`
+  - `docker inspect -f '{% raw %}{{% endraw %}{ index .Config.Labels "build_version" }}' mylar3`
 - 查看镜像版本号：
-  - `docker inspect -f '{% raw %}{{% endraw %}{ index .Config.Labels "build_version" }}' ghcr.io/linuxserver/muximux`
+  - `docker inspect -f '{% raw %}{{% endraw %}{ index .Config.Labels "build_version" }}' ghcr.io/linuxserver/mylar3`
 
 ------
 

@@ -81,4 +81,7 @@
     * [linuxserver/mstream](images/docker-mstream.md)
     * [linuxserver/musicbrainz](images/docker-musicbrainz.md)
     * [linuxserver/muximux](images/docker-muximux.md)
+    * [linuxserver/mylar](images/docker-mylar.md)
+    * [linuxserver/mylar3](images/docker-mylar3.md)
+    * [linuxserver/mysql-workbench](images/docker-mysql-workbench.md)
 
