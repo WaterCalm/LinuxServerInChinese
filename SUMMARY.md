@@ -84,4 +84,7 @@
     * [linuxserver/mylar](images/docker-mylar.md)
     * [linuxserver/mylar3](images/docker-mylar3.md)
     * [linuxserver/mysql-workbench](images/docker-mysql-workbench.md)
+    * [linuxserver/nano-wallet](images/docker-nano-wallet.md)
+    * [linuxserver/nano](images/docker-nano.md)
+    * [linuxserver/netbootxyz](images/docker-netbootxyz.md)
 
